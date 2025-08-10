@@ -2,6 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.jsx';
 import HeroSection from './components/HeroSection.jsx';
+import AboutSection from './components/AboutSection.jsx';
 
 // Wait for DOM to be ready
 const initReactApp = () => {
@@ -26,6 +27,13 @@ const initReactApp = () => {
   if (heroRoot) {
     const heroReactRoot = createRoot(heroRoot);
     heroReactRoot.render(<HeroSection />);
+  }
+  
+  // Mount About Section with MagicBento component
+  const aboutRoot = document.getElementById('about-section-root');
+  if (aboutRoot) {
+    const aboutReactRoot = createRoot(aboutRoot);
+    aboutReactRoot.render(<AboutSection />);
   }
 };
 

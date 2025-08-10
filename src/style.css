@@ -251,6 +251,239 @@ html {
   margin-top: 0;
 }
 
+/* About Section - Scrollable with Fixed Layout */
+.about-section {
+  height: auto;
+  min-height: 400vh; /* 4x viewport height for 4 team members */
+  padding: 0;
+  margin: 0;
+}
+
+.about-container {
+  display: flex;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+/* Left Panel - Fixed Cybersecurity Content */
+.cyber-info-panel {
+  width: 50%;
+  height: 100vh;
+  padding: 2rem;
+  background: var(--primary-dark);
+  border-right: 1px solid rgba(16, 185, 129, 0.2);
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+}
+
+.cyber-content {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.section-subtitle {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--accent-green);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  letter-spacing: 1px;
+}
+
+.expertise-overview {
+  margin: 3rem 0;
+}
+
+.expertise-section {
+  margin-bottom: 3rem;
+}
+
+.section-icon {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.expertise-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.expertise-points {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.expertise-points li {
+  padding: 0.8rem;
+  margin-bottom: 0.5rem;
+  background: rgba(16, 185, 129, 0.05);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  transition: var(--transition-smooth);
+}
+
+.expertise-points li:hover {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: var(--accent-green);
+  transform: translateX(5px);
+}
+
+.mission-box {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 10px;
+  padding: 2rem;
+  margin-top: 3rem;
+  backdrop-filter: blur(5px);
+}
+
+.mission-box h4 {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--accent-green);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+.mission-box p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Right Panel - Team Showcase */
+.team-showcase-panel {
+  width: 50%;
+  height: 100vh;
+  position: relative;
+}
+
+.team-showcase-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.team-showcase-item.active {
+  opacity: 1;
+}
+
+.member-photo {
+  margin-bottom: 2rem;
+}
+
+.photo-placeholder {
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(6, 182, 212, 0.3));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  border: 3px solid rgba(16, 185, 129, 0.5);
+  margin: 0 auto;
+  transition: var(--transition-smooth);
+}
+
+.team-showcase-item.active .photo-placeholder {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
+}
+
+.member-details {
+  text-align: center;
+  max-width: 400px;
+}
+
+.member-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.member-title {
+  font-size: 1.1rem;
+  color: var(--accent-green);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+}
+
+.member-quote {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-style: italic;
+  position: relative;
+}
+
+.member-quote::before {
+  content: '"';
+  font-size: 3rem;
+  color: var(--accent-green);
+  position: absolute;
+  left: -2rem;
+  top: -1rem;
+  opacity: 0.3;
+}
+
+.member-quote::after {
+  content: '"';
+  font-size: 3rem;
+  color: var(--accent-green);
+  position: absolute;
+  right: -2rem;
+  bottom: -2rem;
+  opacity: 0.3;
+}
+
+.member-specialties {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.specialty-tag {
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: var(--accent-green);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
 /* Modern Cybersecurity Hero Section */
 .hero-section {
   background: var(--primary-dark);
@@ -1167,4 +1400,281 @@ html {
 .scale-up.visible {
   opacity: 1;
   transform: scale(1);
+}
+
+/* About Section */
+.about-section {
+  min-height: 400vh;
+  background: linear-gradient(135deg, rgb(10, 26, 51) 0%, rgba(30, 58, 138, 0.8) 100%);
+}
+
+.about-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+.about-left {
+  padding: 4rem;
+  display: flex;
+  align-items: center;
+  background: rgba(10, 26, 51, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.about-content {
+  max-width: 600px;
+}
+
+.about-content h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--accent-cyan);
+  text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+}
+
+.about-content .section-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+}
+
+.cybersecurity-expertise,
+.blockchain-expertise,
+.club-mission {
+  margin-bottom: 3rem;
+}
+
+.cybersecurity-expertise h3,
+.blockchain-expertise h3,
+.club-mission h3 {
+  font-size: 1.5rem;
+  color: var(--accent-green);
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+}
+
+.expertise-list {
+  list-style: none;
+  padding: 0;
+}
+
+.expertise-list li {
+  padding: 0.5rem 0;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  border-left: 3px solid var(--accent-cyan);
+  padding-left: 1rem;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.expertise-list li:hover {
+  border-left-color: var(--accent-green);
+  transform: translateX(10px);
+  color: var(--accent-green);
+}
+
+.mission-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.mission-stats .stat-item {
+  text-align: center;
+  padding: 1rem;
+  background: rgba(6, 182, 212, 0.1);
+  border-radius: 10px;
+  border: 1px solid var(--accent-cyan);
+  transition: all 0.3s ease;
+}
+
+.mission-stats .stat-item:hover {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: var(--accent-green);
+  transform: translateY(-5px);
+}
+
+.mission-stats .stat-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--accent-cyan);
+  text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+}
+
+.mission-stats .stat-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+}
+
+.about-right {
+  padding: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+}
+
+.team-showcase {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.team-member {
+  opacity: 0;
+  transform: scale(0.8) translateY(50px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 2rem;
+  background: rgba(10, 26, 51, 0.8);
+  border-radius: 20px;
+  border: 2px solid var(--accent-cyan);
+  backdrop-filter: blur(15px);
+}
+
+.team-member.active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  position: relative;
+}
+
+.member-photo {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(6, 182, 212, 0.4);
+  transition: all 0.3s ease;
+}
+
+.team-member:hover .member-photo {
+  transform: scale(1.05);
+  box-shadow: 0 0 40px rgba(16, 185, 129, 0.6);
+}
+
+.photo-placeholder {
+  font-size: 4rem;
+  color: white;
+}
+
+.member-name {
+  font-size: 1.8rem;
+  color: var(--accent-cyan);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+}
+
+.member-role {
+  font-size: 1.1rem;
+  color: var(--accent-green);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.member-quote {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  line-height: 1.6;
+  border-left: 3px solid var(--accent-cyan);
+  padding-left: 1rem;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .about-section {
+    min-height: 300vh;
+  }
+  
+  .about-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  .about-left,
+  .about-right {
+    padding: 2rem;
+  }
+  
+  .about-content h2 {
+    font-size: 2rem;
+  }
+  
+  .mission-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .member-photo {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .photo-placeholder {
+    font-size: 3rem;
+  }
+}
+
+/* React App Layout Styles */
+.app {
+  position: relative;
+  min-height: 100vh;
+  background: var(--gradient-primary);
+}
+
+.main-content {
+  position: relative;
+  z-index: 1;
+}
+
+.page-container {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Navigation Link Styles for React Router */
+.sidebar-nav a {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+.sidebar-nav a:hover {
+  color: var(--accent-cyan);
+  text-shadow: 0 0 10px var(--accent-cyan);
+}
+
+.nav-logo {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: 1.2rem;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+.nav-logo:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 20px var(--accent-cyan);
 }
