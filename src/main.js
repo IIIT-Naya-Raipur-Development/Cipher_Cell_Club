@@ -260,6 +260,7 @@ class GradientAnimationManager {
 
 class AdvancedEffectsManager {
   constructor() {
+    this.trail = [];
     this.init();
   }
   
@@ -270,14 +271,13 @@ class AdvancedEffectsManager {
   }
   
   setupCursorTrail() {
-    const trail = [];
     const trailLength = 10;
     
     document.addEventListener('mousemove', (e) => {
-      trail.push({ x: e.clientX, y: e.clientY, life: trailLength });
+      this.trail.push({ x: e.clientX, y: e.clientY, life: trailLength });
       
-      if (trail.length > trailLength) {
-        trail.shift();
+      if (this.trail.length > trailLength) {
+        this.trail.shift();
       }
       
       this.updateTrail();
@@ -289,7 +289,7 @@ class AdvancedEffectsManager {
     document.querySelectorAll('.cursor-trail').forEach(el => el.remove());
     
     // Create new trail elements
-    trail.forEach((point, index) => {
+    this.trail.forEach((point, index) => {
       if (point.life > 0) {
         const trailElement = document.createElement('div');
         trailElement.className = 'cursor-trail';

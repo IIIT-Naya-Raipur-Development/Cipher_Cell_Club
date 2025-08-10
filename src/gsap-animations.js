@@ -92,14 +92,19 @@ class GSAPAnimations {
       ease: 'power2.inOut'
     });
     
-    // Add pulsing effect to title
-    gsap.to('#heroTitle .title-accent', {
-      textShadow: '0 0 20px rgba(16, 185, 129, 0.8), 0 0 40px rgba(6, 182, 212, 0.4)',
-      duration: 2,
-      repeat: -1,
-      yoyo: true,
-      ease: 'power2.inOut'
-    });
+    // Add pulsing effect to title - with delay to ensure element exists
+    setTimeout(() => {
+      const titleAccent = document.querySelector('#heroTitle .title-accent');
+      if (titleAccent) {
+        gsap.to(titleAccent, {
+          textShadow: '0 0 20px rgba(16, 185, 129, 0.8), 0 0 40px rgba(6, 182, 212, 0.4)',
+          duration: 2,
+          repeat: -1,
+          yoyo: true,
+          ease: 'power2.inOut'
+        });
+      }
+    }, 1000);
   }
   
   
@@ -239,6 +244,11 @@ class GSAPAnimations {
     // Button hover animations
     const buttons = document.querySelectorAll('.btn');
     
+    if (!buttons.length) {
+      console.log('No buttons found for interactive animations');
+      return;
+    }
+    
     buttons.forEach(button => {
       button.addEventListener('mouseenter', () => {
         gsap.to(button, {
@@ -330,6 +340,11 @@ class GSAPAnimations {
     
     // Cyber shield interaction
     const cyberShield = document.getElementById('cyberShield');
+    
+    if (!cyberShield) {
+      console.log('Cyber shield element not found');
+      return;
+    }
     
     cyberShield.addEventListener('mouseenter', () => {
       gsap.to('.shield-ring', {

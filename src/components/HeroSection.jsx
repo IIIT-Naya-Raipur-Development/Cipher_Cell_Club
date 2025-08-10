@@ -1,15 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import HeroBackground from './HeroBackground';
 import DecryptedText from './DecryptedText';
 
 const HeroSection = () => {
+  const [shouldStartAnimations, setShouldStartAnimations] = useState(false);
+
   useEffect(() => {
-    // GSAP is already initialized by main.js, so we don't need to initialize it again
-    // Just dispatch a custom event to let the system know the hero section is ready
-    setTimeout(() => {
-      const heroReadyEvent = new CustomEvent('heroSectionReady');
-      document.dispatchEvent(heroReadyEvent);
-    }, 100);
+    // Wait for website to be fully loaded before starting animations
+    const handleWebsiteReady = () => {
+      setTimeout(() => {
+        setShouldStartAnimations(true);
+        // Dispatch hero ready event after loading is complete
+        const heroReadyEvent = new CustomEvent('heroSectionReady');
+        document.dispatchEvent(heroReadyEvent);
+      }, 10); // Small delay to ensure everything is ready
+    };
+
+    // Check if website is already ready
+    if (document.body.style.opacity === '1') {
+      handleWebsiteReady();
+    } else {
+      // Listen for website ready event
+      document.addEventListener('websiteReady', handleWebsiteReady);
+    }
+
+    return () => {
+      document.removeEventListener('websiteReady', handleWebsiteReady);
+    };
   }, []);
 
   return (
@@ -27,19 +44,25 @@ const HeroSection = () => {
             <span className="title-main">C1PH3R</span><span className="title-accent">C3LL</span>
           </h1>
           
-          <h2 className="hero-subtitle" id="heroSubtitle">
-            <DecryptedText
-              text="Defending tomorrow's digital world through advanced cybersecurity research, blockchain innovation, and ethical hacking excellence."
-              animateOn="view"
-              speed={25}
-              maxIterations={30}
-              sequential={true}
-              revealDirection="start"
-              characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-={}[]|\\:;',.?/"
-              className="subtitle-revealed"
-              encryptedClassName="subtitle-encrypted"
-            />
-          </h2>
+          <div className="hero-subtitle" id="heroSubtitle">
+            {shouldStartAnimations ? (
+              <DecryptedText
+                text="Defending tomorrow's digital world through advanced cybersecurity research, blockchain innovation, and ethical hacking excellence."
+                animateOn="view"
+                speed={25}
+                maxIterations={30}
+                sequential={true}
+                revealDirection="start"
+                characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-={}[]|:;',.?/"
+                className="subtitle-revealed"
+                encryptedClassName="subtitle-encrypted"
+              />
+            ) : (
+              <span className="subtitle-revealed">
+                Defending tomorrow's digital world through advanced cybersecurity research, blockchain innovation, and ethical hacking excellence.
+              </span>
+            )}
+          </div>
           
           <div className="hero-features" id="heroFeatures">
             <div className="feature-item">
@@ -99,57 +122,73 @@ const HeroSection = () => {
           <div className="security-stats" id="securityStats">
             <div className="stat-card">
               <div className="stat-text">
-                <DecryptedText
-                  text="SECURE"
-                  animateOn="view"
-                  speed={80}
-                  maxIterations={15}
-                  characters="01ABCDEF!@#$%^&*"
-                  className="stat-revealed"
-                  encryptedClassName="stat-encrypted"
-                />
+                {shouldStartAnimations ? (
+                  <DecryptedText
+                    text="SECURE"
+                    animateOn="view"
+                    speed={80}
+                    maxIterations={15}
+                    characters="01ABCDEF!@#$%^&*"
+                    className="stat-revealed"
+                    encryptedClassName="stat-encrypted"
+                  />
+                ) : (
+                  <span className="stat-revealed">SECURE</span>
+                )}
               </div>
               <div className="stat-label">Network Status</div>
             </div>
             <div className="stat-card">
               <div className="stat-text">
-                <DecryptedText
-                  text="ELITE"
-                  animateOn="view"
-                  speed={90}
-                  maxIterations={18}
-                  characters="HACKER01234567!?"
-                  className="stat-revealed"
-                  encryptedClassName="stat-encrypted"
-                />
+                {shouldStartAnimations ? (
+                  <DecryptedText
+                    text="ELITE"
+                    animateOn="view"
+                    speed={90}
+                    maxIterations={18}
+                    characters="HACKER01234567!?"
+                    className="stat-revealed"
+                    encryptedClassName="stat-encrypted"
+                  />
+                ) : (
+                  <span className="stat-revealed">ELITE</span>
+                )}
               </div>
               <div className="stat-label">Skill Level</div>
             </div>
             <div className="stat-card">
               <div className="stat-text">
-                <DecryptedText
-                  text="ACTIVE"
-                  animateOn="view"
-                  speed={70}
-                  maxIterations={12}
-                  characters="CYBER0123456789"
-                  className="stat-revealed"
-                  encryptedClassName="stat-encrypted"
-                />
+                {shouldStartAnimations ? (
+                  <DecryptedText
+                    text="ACTIVE"
+                    animateOn="view"
+                    speed={70}
+                    maxIterations={12}
+                    characters="CYBER0123456789"
+                    className="stat-revealed"
+                    encryptedClassName="stat-encrypted"
+                  />
+                ) : (
+                  <span className="stat-revealed">ACTIVE</span>
+                )}
               </div>
               <div className="stat-label">Threat Detection</div>
             </div>
             <div className="stat-card">
               <div className="stat-text">
-                <DecryptedText
-                  text="ONLINE"
-                  animateOn="view"
-                  speed={60}
-                  maxIterations={20}
-                  characters="BLOCKCHAIN01!@#"
-                  className="stat-revealed"
-                  encryptedClassName="stat-encrypted"
-                />
+                {shouldStartAnimations ? (
+                  <DecryptedText
+                    text="ONLINE"
+                    animateOn="view"
+                    speed={60}
+                    maxIterations={20}
+                    characters="BLOCKCHAIN01!@#"
+                    className="stat-revealed"
+                    encryptedClassName="stat-encrypted"
+                  />
+                ) : (
+                  <span className="stat-revealed">ONLINE</span>
+                )}
               </div>
               <div className="stat-label">System Status</div>
             </div>
