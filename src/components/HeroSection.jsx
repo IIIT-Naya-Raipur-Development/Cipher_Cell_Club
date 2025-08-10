@@ -65,23 +65,53 @@ const HeroSection = () => {
           </div>
           
           <div className="hero-features" id="heroFeatures">
-            <div className="feature-item">
-              <span className="feature-icon">🔍</span>
-              <span className="feature-text">Advanced Penetration Testing</span>
+            <div className="cyber-grid">
+              <div className="grid-item">
+                <div className="grid-icon">▲</div>
+                <div className="grid-label">SECURE</div>
+              </div>
+              <div className="grid-item">
+                <div className="grid-icon">◆</div>
+                <div className="grid-label">ANALYZE</div>
+              </div>
+              <div className="grid-item">
+                <div className="grid-icon">●</div>
+                <div className="grid-label">DEFEND</div>
+              </div>
+              <div className="grid-item">
+                <div className="grid-icon">■</div>
+                <div className="grid-label">EVOLVE</div>
+              </div>
             </div>
-            <div className="feature-item">
-              <span className="feature-icon">⛓️</span>
-              <span className="feature-text">Blockchain Security Research</span>
-            </div>
-            <div className="feature-item">
-              <span className="feature-icon">🏆</span>
-              <span className="feature-text">Competitive CTF Challenges</span>
+            
+            <div className="access-panel">
+              <div className="panel-header">
+                <span className="access-status">ACCESS GRANTED</span>
+                <div className="status-indicator"></div>
+              </div>
+              <div className="panel-content">
+                {shouldStartAnimations ? (
+                  <DecryptedText
+                    text="INITIATING SECURE CONNECTION..."
+                    animateOn="view"
+                    speed={40}
+                    maxIterations={20}
+                    characters="0123456789ABCDEF!@#$%^&*"
+                    className="access-text-revealed"
+                    encryptedClassName="access-text-encrypted"
+                  />
+                ) : (
+                  <span className="access-text-revealed">INITIATING SECURE CONNECTION...</span>
+                )}
+              </div>
             </div>
           </div>
           
           <div className="hero-actions" id="heroActions">
-            <a href="#about" className="btn btn-primary">JOIN THE CELL</a>
-            <a href="#services" className="btn btn-secondary">VIEW PROJECTS</a>
+            <div className="cyber-button" data-text="ENTER CYBERSPACE">
+              <span className="btn-text">ENTER CYBERSPACE</span>
+              <div className="btn-overlay"></div>
+            </div>
           </div>
         </div>
         
