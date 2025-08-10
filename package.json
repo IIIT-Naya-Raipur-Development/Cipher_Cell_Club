@@ -1,0 +1,21 @@
+{
+  "name": "ciphercell-site",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.0",
+    "vite": "^7.1.0"
+  },
+  "dependencies": {
+    "gsap": "^3.13.0",
+    "motion": "^12.23.12",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  }
+}
