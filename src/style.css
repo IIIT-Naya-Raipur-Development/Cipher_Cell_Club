@@ -260,6 +260,26 @@ html {
   align-items: center;
   justify-content: center;
   padding: 0 2rem;
+  transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Prime Mode */
+.hero-section.prime-mode {
+  background: linear-gradient(135deg, #1a0b2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+.hero-section.prime-mode::before {
+  background: 
+    radial-gradient(circle at 30% 20%, rgba(255, 23, 68, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 70% 80%, rgba(255, 69, 105, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 20% 70%, rgba(255, 107, 138, 0.08) 0%, transparent 50%),
+    linear-gradient(135deg, rgba(255, 23, 68, 0.03) 0%, rgba(255, 69, 105, 0.05) 50%, rgba(255, 107, 138, 0.03) 100%);
+  animation: primeBackgroundPulse 6s ease-in-out infinite;
+}
+
+@keyframes primeBackgroundPulse {
+  0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  50% { opacity: 0.8; transform: scale(1.03) rotate(1deg); }
 }
 
 /* Enhanced Cyber Background Pattern */
@@ -405,7 +425,7 @@ html {
 /* Cyber Grid Display */
 .cyber-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
@@ -492,6 +512,61 @@ html {
 .access-text-encrypted {
   color: var(--accent-green);
   opacity: 0.7;
+}
+
+.access-text-hacked {
+  color: #ff1744;
+  text-shadow: 0 0 10px rgba(255, 23, 68, 0.5);
+}
+
+.stat-hacked {
+  color: #ff1744;
+  text-shadow: 0 0 10px rgba(255, 23, 68, 0.5);
+  animation: hackGlitch 2s ease-in-out infinite;
+}
+
+@keyframes hackGlitch {
+  0%, 100% { 
+    transform: translateX(0); 
+    text-shadow: 0 0 10px rgba(255, 23, 68, 0.5);
+  }
+  25% { 
+    transform: translateX(-2px); 
+    text-shadow: -2px 0 10px rgba(255, 23, 68, 0.8);
+  }
+  75% { 
+    transform: translateX(2px); 
+    text-shadow: 2px 0 10px rgba(255, 23, 68, 0.8);
+  }
+}
+
+.access-status.hacked {
+  color: #ff1744;
+  animation: hackFlicker 1.5s ease-in-out infinite;
+}
+
+@keyframes hackFlicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+  80% { opacity: 0.9; }
+}
+
+.status-indicator.hacked {
+  background: #ff1744;
+  animation: hackStatusPulse 1s infinite;
+}
+
+@keyframes hackStatusPulse {
+  0%, 100% { 
+    opacity: 1; 
+    box-shadow: 0 0 5px rgba(255, 23, 68, 0.5);
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.3; 
+    box-shadow: 0 0 20px rgba(255, 23, 68, 1);
+    transform: scale(1.2);
+  }
 }
 
 .feature-item {
@@ -596,6 +671,43 @@ html {
 @keyframes scanEffect {
   0% { transform: translateX(-100%) skewX(-15deg); }
   100% { transform: translateX(100%) skewX(-15deg); }
+}
+
+/* Prime Mode Button Effects */
+.prime-mode .cyber-button {
+  border-color: #ff1744;
+  color: #ff1744;
+  animation: primeGlow 2s ease-in-out infinite;
+}
+
+.prime-mode .cyber-button:hover {
+  border-color: #ff4569;
+  background: rgba(255, 23, 68, 0.1);
+  box-shadow: 
+    0 0 20px rgba(255, 23, 68, 0.4),
+    inset 0 0 20px rgba(255, 23, 68, 0.1);
+}
+
+@keyframes primeGlow {
+  0%, 100% { box-shadow: 0 0 5px rgba(255, 23, 68, 0.3); }
+  50% { box-shadow: 0 0 15px rgba(255, 23, 68, 0.6); }
+}
+
+/* Prime Mode Terminal Effects */
+.prime-mode .hero-terminal {
+  border-color: #ff1744;
+  box-shadow: 
+    0 0 40px rgba(255, 23, 68, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.prime-mode .terminal-title,
+.prime-mode .terminal-prompt {
+  color: #ff1744;
+}
+
+.prime-mode .terminal-command {
+  color: #ff4569;
 }
 
 /* Enhanced Cyber Terminal Visualization */

@@ -40,6 +40,24 @@ class SmoothScrollManager {
     document.querySelectorAll('.section').forEach(section => {
       observer.observe(section);
     });
+    
+    // Listen for manual animation triggers
+    document.addEventListener('manualSectionTrigger', (event) => {
+      const sectionId = event.detail.sectionId;
+      const section = document.querySelector(sectionId);
+      if (section) {
+        // Trigger the same animations as intersection observer
+        const animatedElements = section.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-up');
+        animatedElements.forEach((element, index) => {
+          setTimeout(() => {
+            element.classList.add('visible');
+          }, index * 200);
+        });
+        
+        // Update scroll indicator
+        this.updateScrollIndicator(section.id);
+      }
+    });
   }
   
   updateScrollIndicator(activeSection) {

@@ -163,6 +163,12 @@ class GSAPAnimations {
       });
     });
     
+    // Listen for manual section triggers
+    document.addEventListener('manualSectionTrigger', (event) => {
+      const sectionId = event.detail.sectionId;
+      this.triggerSectionAnimation(sectionId);
+    });
+    
     // Navbar active item animation
     this.animateNavigation();
   }

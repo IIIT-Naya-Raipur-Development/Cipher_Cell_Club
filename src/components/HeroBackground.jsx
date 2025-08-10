@@ -2,7 +2,7 @@ import React from 'react';
 import LetterGlitch from './LetterGlitch';
 import ErrorBoundary from './ErrorBoundary';
 
-const HeroBackground = () => {
+const HeroBackground = ({ isPrimeMode }) => {
   return (
     <div style={{
       position: 'absolute',
@@ -15,8 +15,8 @@ const HeroBackground = () => {
     }}>
       <ErrorBoundary>
         <LetterGlitch
-          glitchColors={['#10b981', '#06b6d4', '#1e40af', '#4f46e5']}
-          glitchSpeed={50}
+          glitchColors={isPrimeMode ? ['#ff1744', '#ff4569', '#ff6b8a', '#ff8a65'] : ['#10b981', '#06b6d4', '#1e40af', '#4f46e5']}
+          glitchSpeed={isPrimeMode ? 25 : 50}
           centerVignette={true}
           outerVignette={false}
           smooth={true}

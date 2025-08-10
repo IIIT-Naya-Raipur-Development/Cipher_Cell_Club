@@ -4,6 +4,8 @@ import DecryptedText from './DecryptedText';
 
 const HeroSection = () => {
   const [shouldStartAnimations, setShouldStartAnimations] = useState(false);
+  const [isPrimeMode, setIsPrimeMode] = useState(false);
+  const [isHacked, setIsHacked] = useState(false);
 
   useEffect(() => {
     // Wait for website to be fully loaded before starting animations
@@ -29,10 +31,82 @@ const HeroSection = () => {
     };
   }, []);
 
+  const handleGetFreeThing = () => {
+    // Console hacking messages
+    const hackingMessages = [
+      '🔴 SECURITY BREACH DETECTED...',
+      '⚠️  FIREWALL BYPASSED',
+      '💀 INJECTING MALICIOUS PAYLOAD...',
+      '🚫 ACCESS DENIED → OVERRIDING...',
+      '⚡ ROOT ACCESS GRANTED',
+      '🔓 SYSTEM COMPROMISED',
+      '💉 SQL INJECTION SUCCESSFUL',
+      '🎯 TARGET ACQUIRED',
+      '⚠️  WARNING: INSECURE CONNECTION',
+      '🔥 BUFFER OVERFLOW EXPLOITED',
+      '💻 ADMIN PRIVILEGES ESCALATED',
+      '🎭 IDENTITY SPOOFED',
+      '🔐 ENCRYPTION CRACKED',
+      '⚠️  DATA BREACH IN PROGRESS...',
+      '🌐 NETWORK INFILTRATED'
+    ];
+
+    // Display hacking messages in console
+    hackingMessages.forEach((message, index) => {
+      setTimeout(() => {
+        console.log(`%c${message}`, 'color: #ff1744; font-weight: bold; font-size: 12px;');
+      }, index * 200);
+    });
+
+    // Console ASCII art after messages
+    setTimeout(() => {
+      console.log(`%c
+    ⚠️  SYSTEM HACKED ⚠️
+    ╔══════════════════╗
+    ║   UNAUTHORIZED   ║
+    ║     ACCESS       ║
+    ║    DETECTED      ║
+    ╚══════════════════╝
+      `, 'color: #ff1744; font-family: monospace; font-size: 10px;');
+    }, hackingMessages.length * 200 + 500);
+
+    // Activate prime mode and hacked state instantly
+    setIsPrimeMode(true);
+    setIsHacked(true);
+    
+    // Navigate to next section after longer delay
+    setTimeout(() => {
+      const aboutSection = document.querySelector('#about');
+      if (aboutSection) {
+        aboutSection.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start' 
+        });
+        
+        // Manually trigger section animations after navigation
+        setTimeout(() => {
+          // Trigger intersection observer for about section
+          const animatedElements = aboutSection.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-up');
+          animatedElements.forEach((element, index) => {
+            setTimeout(() => {
+              element.classList.add('visible');
+            }, index * 200);
+          });
+          
+          // Also trigger GSAP animations if they exist
+          const event = new CustomEvent('manualSectionTrigger', { 
+            detail: { sectionId: '#about' } 
+          });
+          document.dispatchEvent(event);
+        }, 800); // Wait for scroll animation to complete
+      }
+    }, 3000); // Wait to enjoy the hacked animations
+  };
+
   return (
-    <section id="home" className="section hero-section">
+    <section id="home" className={`section hero-section ${isPrimeMode ? 'prime-mode' : ''}`}>
       {/* LetterGlitch Background */}
-      <HeroBackground />
+      <HeroBackground isPrimeMode={isPrimeMode} />
       
       <div className="hero-container">
         <div className="hero-content" id="heroContent">
@@ -67,10 +141,6 @@ const HeroSection = () => {
           <div className="hero-features" id="heroFeatures">
             <div className="cyber-grid">
               <div className="grid-item">
-                <div className="grid-icon">▲</div>
-                <div className="grid-label">SECURE</div>
-              </div>
-              <div className="grid-item">
                 <div className="grid-icon">◆</div>
                 <div className="grid-label">ANALYZE</div>
               </div>
@@ -86,30 +156,35 @@ const HeroSection = () => {
             
             <div className="access-panel">
               <div className="panel-header">
-                <span className="access-status">ACCESS GRANTED</span>
-                <div className="status-indicator"></div>
+                <span className={`access-status ${isHacked ? 'hacked' : ''}`}>
+                  {isHacked ? "SYSTEM HACKED" : "ACCESS GRANTED"}
+                </span>
+                <div className={`status-indicator ${isHacked ? 'hacked' : ''}`}></div>
               </div>
               <div className="panel-content">
                 {shouldStartAnimations ? (
                   <DecryptedText
-                    text="INITIATING SECURE CONNECTION..."
+                    text={isHacked ? "MALWARE INJECTED SUCCESSFULLY..." : "INITIATING SECURE CONNECTION..."}
                     animateOn="view"
                     speed={40}
                     maxIterations={20}
                     characters="0123456789ABCDEF!@#$%^&*"
-                    className="access-text-revealed"
+                    className={isHacked ? "access-text-hacked" : "access-text-revealed"}
                     encryptedClassName="access-text-encrypted"
+                    key={isHacked ? "hacked-connection" : "normal-connection"}
                   />
                 ) : (
-                  <span className="access-text-revealed">INITIATING SECURE CONNECTION...</span>
+                  <span className={isHacked ? "access-text-hacked" : "access-text-revealed"}>
+                    {isHacked ? "MALWARE INJECTED SUCCESSFULLY..." : "INITIATING SECURE CONNECTION..."}
+                  </span>
                 )}
               </div>
             </div>
           </div>
           
           <div className="hero-actions" id="heroActions">
-            <div className="cyber-button" data-text="ENTER CYBERSPACE">
-              <span className="btn-text">ENTER CYBERSPACE</span>
+            <div className="cyber-button" data-text="GET FREE THING" onClick={handleGetFreeThing}>
+              <span className="btn-text">GET FREE THING</span>
               <div className="btn-overlay"></div>
             </div>
           </div>
@@ -154,16 +229,19 @@ const HeroSection = () => {
               <div className="stat-text">
                 {shouldStartAnimations ? (
                   <DecryptedText
-                    text="SECURE"
+                    text={isHacked ? "INSECURE" : "SECURE"}
                     animateOn="view"
                     speed={80}
                     maxIterations={15}
                     characters="01ABCDEF!@#$%^&*"
-                    className="stat-revealed"
+                    className={isHacked ? "stat-hacked" : "stat-revealed"}
                     encryptedClassName="stat-encrypted"
+                    key={isHacked ? "hacked-secure" : "normal-secure"}
                   />
                 ) : (
-                  <span className="stat-revealed">SECURE</span>
+                  <span className={isHacked ? "stat-hacked" : "stat-revealed"}>
+                    {isHacked ? "INSECURE" : "SECURE"}
+                  </span>
                 )}
               </div>
               <div className="stat-label">Network Status</div>
@@ -172,16 +250,19 @@ const HeroSection = () => {
               <div className="stat-text">
                 {shouldStartAnimations ? (
                   <DecryptedText
-                    text="ELITE"
+                    text={isHacked ? "NOOB" : "ELITE"}
                     animateOn="view"
                     speed={90}
                     maxIterations={18}
                     characters="HACKER01234567!?"
-                    className="stat-revealed"
+                    className={isHacked ? "stat-hacked" : "stat-revealed"}
                     encryptedClassName="stat-encrypted"
+                    key={isHacked ? "hacked-elite" : "normal-elite"}
                   />
                 ) : (
-                  <span className="stat-revealed">ELITE</span>
+                  <span className={isHacked ? "stat-hacked" : "stat-revealed"}>
+                    {isHacked ? "NOOB" : "ELITE"}
+                  </span>
                 )}
               </div>
               <div className="stat-label">Skill Level</div>
@@ -190,16 +271,19 @@ const HeroSection = () => {
               <div className="stat-text">
                 {shouldStartAnimations ? (
                   <DecryptedText
-                    text="ACTIVE"
+                    text={isHacked ? "PWNED" : "ACTIVE"}
                     animateOn="view"
                     speed={70}
                     maxIterations={12}
                     characters="CYBER0123456789"
-                    className="stat-revealed"
+                    className={isHacked ? "stat-hacked" : "stat-revealed"}
                     encryptedClassName="stat-encrypted"
+                    key={isHacked ? "hacked-active" : "normal-active"}
                   />
                 ) : (
-                  <span className="stat-revealed">ACTIVE</span>
+                  <span className={isHacked ? "stat-hacked" : "stat-revealed"}>
+                    {isHacked ? "PWNED" : "ACTIVE"}
+                  </span>
                 )}
               </div>
               <div className="stat-label">Threat Detection</div>
@@ -208,16 +292,19 @@ const HeroSection = () => {
               <div className="stat-text">
                 {shouldStartAnimations ? (
                   <DecryptedText
-                    text="ONLINE"
+                    text={isHacked ? "OFFLINE" : "ONLINE"}
                     animateOn="view"
                     speed={60}
                     maxIterations={20}
                     characters="BLOCKCHAIN01!@#"
-                    className="stat-revealed"
+                    className={isHacked ? "stat-hacked" : "stat-revealed"}
                     encryptedClassName="stat-encrypted"
+                    key={isHacked ? "hacked-online" : "normal-online"}
                   />
                 ) : (
-                  <span className="stat-revealed">ONLINE</span>
+                  <span className={isHacked ? "stat-hacked" : "stat-revealed"}>
+                    {isHacked ? "OFFLINE" : "ONLINE"}
+                  </span>
                 )}
               </div>
               <div className="stat-label">System Status</div>
