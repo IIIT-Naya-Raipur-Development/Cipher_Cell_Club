@@ -7,6 +7,14 @@ import './style.css';
 
 // Navigation Component
 const Navigation = () => {
+  const handleSmoothScroll = (e, targetId) => {
+    e.preventDefault();
+    const element = document.querySelector(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
       {/* Left Sidebar Navigation */}
@@ -14,39 +22,39 @@ const Navigation = () => {
         <Link to="/" className="nav-logo">CipherCell</Link>
         <ul className="nav-links">
           <li className="nav-item active">
-            <Link to="/">
+            <a href="#hero" onClick={(e) => handleSmoothScroll(e, '#hero')}>
               <span className="nav-icon">🏠</span>
-            </Link>
+            </a>
             <div className="nav-tooltip">Home</div>
           </li>
           <li className="nav-item">
-            <Link to="/about">
+            <a href="#about" onClick={(e) => handleSmoothScroll(e, '#about')}>
               <span className="nav-icon">🔍</span>
-            </Link>
+            </a>
             <div className="nav-tooltip">About Us</div>
           </li>
           <li className="nav-item">
-            <Link to="/services">
+            <a href="#services" onClick={(e) => handleSmoothScroll(e, '#services')}>
               <span className="nav-icon">🛡️</span>
-            </Link>
+            </a>
             <div className="nav-tooltip">Security Services</div>
           </li>
           <li className="nav-item">
-            <Link to="/events">
+            <a href="#events" onClick={(e) => handleSmoothScroll(e, '#events')}>
               <span className="nav-icon">📅</span>
-            </Link>
+            </a>
             <div className="nav-tooltip">Events & CTFs</div>
           </li>
           <li className="nav-item">
-            <Link to="/team">
+            <a href="#team" onClick={(e) => handleSmoothScroll(e, '#team')}>
               <span className="nav-icon">👥</span>
-            </Link>
+            </a>
             <div className="nav-tooltip">Our Team</div>
           </li>
           <li className="nav-item">
-            <Link to="/contact">
+            <a href="#contact" onClick={(e) => handleSmoothScroll(e, '#contact')}>
               <span className="nav-icon">📧</span>
-            </Link>
+            </a>
             <div className="nav-tooltip">Contact</div>
           </li>
         </ul>
@@ -54,7 +62,7 @@ const Navigation = () => {
 
       {/* Scroll Indicator */}
       <div className="scroll-indicator" id="scroll-indicator">
-        <div className="scroll-dot active" data-target="#home"></div>
+        <div className="scroll-dot active" data-target="#hero"></div>
         <div className="scroll-dot" data-target="#about"></div>
         <div className="scroll-dot" data-target="#services"></div>
         <div className="scroll-dot" data-target="#events"></div>
@@ -69,7 +77,111 @@ const Navigation = () => {
 const HomePage = () => {
   return (
     <div className="page-container">
-      <HeroSection />
+      <div id="hero">
+        <HeroSection />
+      </div>
+      
+      {/* About Section with MagicBento */}
+      <section id="about" className="section">
+        <div className="container">
+          <div className="section-content">
+            <h2 className="section-title fade-in">About C1PH3RC3LL</h2>
+            <p className="section-description fade-in">
+              Elite Cybersecurity & Blockchain Club - Interactive Experience
+            </p>
+            <div className="slide-in-left">
+              <MagicBento 
+                textAutoHide={true}
+                enableStars={true}
+                enableSpotlight={true}
+                enableBorderGlow={true}
+                enableTilt={true}
+                enableMagnetism={true}
+                clickEffect={true}
+                spotlightRadius={300}
+                particleCount={12}
+                glowColor="132, 0, 255"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section id="services" className="section">
+        <div className="container">
+          <div className="section-content">
+            <div className="section-placeholder">
+              <h2 className="section-title fade-in">Our Focus Areas</h2>
+              <p className="section-description fade-in">
+                Cybersecurity and Blockchain expertise that shapes the future of digital security.
+              </p>
+              <div className="slide-in-left">
+                <div style={{height: '400px', border: '2px dashed var(--accent-green)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)'}}>
+                  <p>Custom Services Design Area</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Events Section */}
+      <section id="events" className="section">
+        <div className="container">
+          <div className="section-content">
+            <div className="section-placeholder">
+              <h2 className="section-title slide-in-right">Events & Activities</h2>
+              <p className="section-description slide-in-left">
+                Workshops, competitions, and collaborative projects that build expertise and community.
+              </p>
+              <div className="scale-up">
+                <div style={{height: '350px', border: '2px dashed var(--accent-purple)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)'}}>
+                  <p>Custom Events Design Area</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section id="team" className="section">
+        <div className="container">
+          <div className="section-content">
+            <div className="section-placeholder">
+              <h2 className="section-title fade-in">Our Team</h2>
+              <p className="section-description fade-in">
+                Meet the experts and enthusiasts driving innovation in cybersecurity and blockchain.
+              </p>
+              <div className="slide-in-left">
+                <div style={{height: '400px', border: '2px dashed var(--accent-blue)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)'}}>
+                  <p>Custom Team Design Area</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="section">
+        <div className="container">
+          <div className="section-content">
+            <div className="section-placeholder">
+              <h2 className="section-title slide-in-right">Join CipherCell</h2>
+              <p className="section-description slide-in-left">
+                Ready to secure the digital frontier? Connect with us and become part of the cybersecurity revolution.
+              </p>
+              <div className="scale-up">
+                <div style={{height: '300px', border: '2px dashed var(--accent-cyan)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)'}}>
+                  <p>Custom Contact Design Area</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
