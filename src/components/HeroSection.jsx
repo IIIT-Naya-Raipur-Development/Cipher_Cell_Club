@@ -35,7 +35,7 @@ const HeroSection = () => {
               maxIterations={30}
               sequential={true}
               revealDirection="start"
-              characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-={}[]|\\:;'\"<>,.?/"
+              characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-={}[]|\\:;',.?/"
               className="subtitle-revealed"
               encryptedClassName="subtitle-encrypted"
             />
