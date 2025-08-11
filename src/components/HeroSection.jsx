@@ -74,33 +74,8 @@ const HeroSection = () => {
     setIsPrimeMode(true);
     setIsHacked(true);
     
-    // Navigate to next section after longer delay
-    setTimeout(() => {
-      const aboutSection = document.querySelector('#about');
-      if (aboutSection) {
-        aboutSection.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start' 
-        });
-        
-        // Manually trigger section animations after navigation
-        setTimeout(() => {
-          // Trigger intersection observer for about section
-          const animatedElements = aboutSection.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-up');
-          animatedElements.forEach((element, index) => {
-            setTimeout(() => {
-              element.classList.add('visible');
-            }, index * 200);
-          });
-          
-          // Also trigger GSAP animations if they exist
-          const event = new CustomEvent('manualSectionTrigger', { 
-            detail: { sectionId: '#about' } 
-          });
-          document.dispatchEvent(event);
-        }, 800); // Wait for scroll animation to complete
-      }
-    }, 3000); // Wait to enjoy the hacked animations
+    // Just show the hacking effect without auto-scrolling
+    // Users can now scroll naturally to see the about section
   };
 
   return (

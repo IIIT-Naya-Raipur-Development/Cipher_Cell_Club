@@ -13,36 +13,42 @@ const cardData = [
     title: "Penetration Testing",
     description: "Advanced ethical hacking & vulnerability assessment",
     label: "🔍 RECON",
+    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=300&fit=crop&crop=center"
   },
   {
     color: "#060010",
     title: "Blockchain Security",
     description: "Smart contract auditing & Web3 forensics",
     label: "⛓️ CHAIN",
+    image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&h=300&fit=crop&crop=center"
   },
   {
     color: "#060010",
     title: "CTF Competitions",
     description: "Capture The Flag challenges & tournaments",
     label: "🏆 COMPETE",
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=300&fit=crop&crop=center"
   },
   {
     color: "#060010",
     title: "Digital Forensics",
     description: "Cyber crime investigation & malware analysis",
     label: "🕵️ FORENSICS",
+    image: "https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=400&h=300&fit=crop&crop=center"
   },
   {
     color: "#060010",
     title: "Research & Innovation",
     description: "Zero-day discoveries & security research",
     label: "🔬 RESEARCH",
+    image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop&crop=center"
   },
   {
     color: "#060010",
     title: "Community Impact",
     description: "Training next-gen cybersecurity professionals",
     label: "🎯 MISSION",
+    image: "https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=400&h=300&fit=crop&crop=center"
   },
 ];
 
@@ -565,6 +571,19 @@ const MagicBento = ({
                 clickEffect={clickEffect}
                 enableMagnetism={enableMagnetism}
               >
+                <div className="card__image">
+                  <img 
+                    src={card.image} 
+                    alt={card.title}
+                    style={{
+                      width: '100%',
+                      height: '150px',
+                      objectFit: 'cover',
+                      borderRadius: '8px',
+                      marginBottom: '1rem'
+                    }}
+                  />
+                </div>
                 <div className="card__header">
                   <div className="card__label">{card.label}</div>
                 </div>
@@ -688,6 +707,19 @@ const MagicBento = ({
                 el.addEventListener("click", handleClick);
               }}
             >
+              <div className="card__image">
+                <img 
+                  src={card.image} 
+                  alt={card.title}
+                  style={{
+                    width: '100%',
+                    height: '150px',
+                    objectFit: 'cover',
+                    borderRadius: '8px',
+                    marginBottom: '1rem'
+                  }}
+                />
+              </div>
               <div className="card__header">
                 <div className="card__label">{card.label}</div>
               </div>

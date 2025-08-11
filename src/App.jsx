@@ -82,27 +82,27 @@ const HomePage = () => {
       </div>
       
       {/* About Section with MagicBento */}
-      <section id="about" className="section">
-        <div className="container">
-          <div className="section-content">
-            <h2 className="section-title fade-in">About C1PH3RC3LL</h2>
-            <p className="section-description fade-in">
+      <section id="about" className="section" style={{ padding: '4rem 0' }}>
+        <div style={{ maxWidth: '100%', width: '100%', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <h2 className="section-title fade-in" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', marginBottom: '1rem' }}>About C1PH3RC3LL</h2>
+            <p className="section-description fade-in" style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)', maxWidth: '800px', margin: '0 auto' }}>
               Elite Cybersecurity & Blockchain Club - Interactive Experience
             </p>
-            <div className="slide-in-left">
-              <MagicBento 
-                textAutoHide={true}
-                enableStars={true}
-                enableSpotlight={true}
-                enableBorderGlow={true}
-                enableTilt={true}
-                enableMagnetism={true}
-                clickEffect={true}
-                spotlightRadius={300}
-                particleCount={12}
-                glowColor="132, 0, 255"
-              />
-            </div>
+          </div>
+          <div className="slide-in-left">
+            <MagicBento 
+              textAutoHide={true}
+              enableStars={true}
+              enableSpotlight={true}
+              enableBorderGlow={true}
+              enableTilt={true}
+              enableMagnetism={true}
+              clickEffect={true}
+              spotlightRadius={300}
+              particleCount={12}
+              glowColor="132, 0, 255"
+            />
           </div>
         </div>
       </section>
@@ -335,6 +335,8 @@ const App = () => {
         
         // Ensure body is visible
         document.body.style.opacity = '1';
+        
+        // All components now visible by default - no fade animations needed
         
       } catch (error) {
         console.log('Website initialization error:', error);
