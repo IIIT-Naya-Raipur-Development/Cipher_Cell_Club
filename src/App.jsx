@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import LoadingScreen from './components/LoadingScreen.jsx';
 import HeroSection from './components/HeroSection.jsx';
 import MagicBento from './components/MagicBento.jsx';
+import ScrollStack from './components/ScrollStack.jsx';
 import './style.css';
 
 // Navigation Component
@@ -149,62 +150,92 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="section">
-        <div className="container">
-          <div className="section-content">
-            <div className="section-placeholder">
-              <h2 className="section-title fade-in">Our Focus Areas</h2>
-              <p className="section-description fade-in">
-                Cybersecurity and Blockchain expertise that shapes the future of digital security.
-              </p>
-              <div className="slide-in-left">
-                <div style={{height: '400px', border: '2px dashed var(--accent-green)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)'}}>
-                  <p>Custom Services Design Area</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Events Section */}
-      <section id="events" className="section">
-        <div className="container">
-          <div className="section-content">
-            <div className="section-placeholder">
-              <h2 className="section-title slide-in-right">Events & Activities</h2>
-              <p className="section-description slide-in-left">
-                Workshops, competitions, and collaborative projects that build expertise and community.
-              </p>
-              <div className="scale-up">
-                <div style={{height: '350px', border: '2px dashed var(--accent-purple)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)'}}>
-                  <p>Custom Events Design Area</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section id="team" className="section">
-        <div className="container">
-          <div className="section-content">
-            <div className="section-placeholder">
-              <h2 className="section-title fade-in">Our Team</h2>
-              <p className="section-description fade-in">
-                Meet the experts and enthusiasts driving innovation in cybersecurity and blockchain.
-              </p>
-              <div className="slide-in-left">
-                <div style={{height: '400px', border: '2px dashed var(--accent-blue)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)'}}>
-                  <p>Custom Team Design Area</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Scroll Stack Sections */}
+      <ScrollStack
+        sections={[
+          {
+            title: "Security Services",
+            subtitle: "Advanced cybersecurity solutions that protect and empower your digital infrastructure",
+            icon: "🛡️",
+            features: [
+              {
+                icon: "🔍",
+                title: "Penetration Testing",
+                description: "Comprehensive security assessments to identify and eliminate vulnerabilities before attackers can exploit them."
+              },
+              {
+                icon: "🔬",
+                title: "Vulnerability Research",
+                description: "Cutting-edge research into emerging threats and zero-day vulnerabilities in modern systems."
+              },
+              {
+                icon: "⚡",
+                title: "Incident Response",
+                description: "Rapid response and forensic analysis to contain breaches and minimize damage to your organization."
+              },
+              {
+                icon: "🏗️",
+                title: "Security Architecture",
+                description: "Design and implementation of robust security frameworks tailored to your business needs."
+              }
+            ]
+          },
+          {
+            title: "Events & CTFs",
+            subtitle: "Competitive cybersecurity challenges and educational workshops that sharpen skills",
+            icon: "🏆",
+            features: [
+              {
+                icon: "⚔️",
+                title: "Capture The Flag",
+                description: "Intense competitive hacking challenges covering web security, cryptography, and reverse engineering."
+              },
+              {
+                icon: "🎓",
+                title: "Security Workshops",
+                description: "Hands-on learning sessions covering the latest tools, techniques, and methodologies in cybersecurity."
+              },
+              {
+                icon: "🌐",
+                title: "Bug Bounty Programs",
+                description: "Collaborative vulnerability hunting programs with rewards for discovering critical security flaws."
+              },
+              {
+                icon: "🤝",
+                title: "Industry Partnerships",
+                description: "Exclusive events with leading cybersecurity companies and government agencies."
+              }
+            ]
+          },
+          {
+            title: "Elite Team",
+            subtitle: "Meet the cybersecurity experts and blockchain specialists driving innovation",
+            icon: "👥",
+            features: [
+              {
+                icon: "💻",
+                title: "Security Researchers",
+                description: "PhD-level experts in vulnerability research, malware analysis, and advanced persistent threat detection."
+              },
+              {
+                icon: "⛓️",
+                title: "Blockchain Developers",
+                description: "Smart contract auditors and DeFi protocol specialists with proven track records in Web3 security."
+              },
+              {
+                icon: "🎯",
+                title: "Red Team Operators",
+                description: "Elite penetration testers and social engineers who simulate real-world attack scenarios."
+              },
+              {
+                icon: "🔐",
+                title: "Cryptography Experts",
+                description: "Mathematics and computer science experts specializing in cryptographic protocol design and analysis."
+              }
+            ]
+          }
+        ]}
+      />
 
       {/* Contact Section */}
       <section id="contact" className="section">

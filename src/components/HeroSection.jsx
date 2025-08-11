@@ -114,20 +114,6 @@ const HeroSection = () => {
           </div>
           
           <div className="hero-features" id="heroFeatures">
-            <div className="cyber-grid">
-              <div className="grid-item">
-                <div className="grid-icon">◆</div>
-                <div className="grid-label">ANALYZE</div>
-              </div>
-              <div className="grid-item">
-                <div className="grid-icon">●</div>
-                <div className="grid-label">DEFEND</div>
-              </div>
-              <div className="grid-item">
-                <div className="grid-icon">■</div>
-                <div className="grid-label">EVOLVE</div>
-              </div>
-            </div>
             
             <div className="access-panel">
               <div className="panel-header">
