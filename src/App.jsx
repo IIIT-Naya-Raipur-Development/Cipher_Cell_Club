@@ -7,6 +7,8 @@ import './style.css';
 
 // Navigation Component
 const Navigation = () => {
+  const [activeSection, setActiveSection] = useState('hero');
+
   const handleSmoothScroll = (e, targetId) => {
     e.preventDefault();
     const element = document.querySelector(targetId);
@@ -15,13 +17,53 @@ const Navigation = () => {
     }
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['hero', 'about', 'services', 'events', 'team', 'contact'];
+      const scrollPosition = window.scrollY + 100; // Offset for better detection
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sections[i]);
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(sections[i]);
+          
+          // Update scroll dots
+          const dots = document.querySelectorAll('.scroll-dot');
+          dots.forEach((dot, index) => {
+            if (index === i) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+          
+          // Update nav items
+          const navItems = document.querySelectorAll('.nav-item');
+          navItems.forEach((item, index) => {
+            if (index === i) {
+              item.classList.add('active');
+            } else {
+              item.classList.remove('active');
+            }
+          });
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Call once on mount
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <>
       {/* Left Sidebar Navigation */}
       <nav className="sidebar-nav" id="navbar">
         <Link to="/" className="nav-logo">CipherCell</Link>
         <ul className="nav-links">
-          <li className="nav-item active">
+          <li className="nav-item">
             <a href="#hero" onClick={(e) => handleSmoothScroll(e, '#hero')}>
               <span className="nav-icon">🏠</span>
             </a>
@@ -62,7 +104,7 @@ const Navigation = () => {
 
       {/* Scroll Indicator */}
       <div className="scroll-indicator" id="scroll-indicator">
-        <div className="scroll-dot active" data-target="#hero"></div>
+        <div className="scroll-dot" data-target="#hero"></div>
         <div className="scroll-dot" data-target="#about"></div>
         <div className="scroll-dot" data-target="#services"></div>
         <div className="scroll-dot" data-target="#events"></div>

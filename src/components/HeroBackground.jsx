@@ -1,6 +1,5 @@
 import React from 'react';
 import LetterGlitch from './LetterGlitch';
-import ErrorBoundary from './ErrorBoundary';
 
 const HeroBackground = ({ isPrimeMode }) => {
   return (
@@ -13,7 +12,6 @@ const HeroBackground = ({ isPrimeMode }) => {
       zIndex: 1,
       opacity: 0.15
     }}>
-      <ErrorBoundary>
         <LetterGlitch
           glitchColors={isPrimeMode ? ['#ff1744', '#ff4569', '#ff6b8a', '#ff8a65'] : ['#10b981', '#06b6d4', '#1e40af', '#4f46e5']}
           glitchSpeed={isPrimeMode ? 25 : 50}
@@ -21,7 +19,6 @@ const HeroBackground = ({ isPrimeMode }) => {
           outerVignette={false}
           smooth={true}
         />
-      </ErrorBoundary>
     </div>
   );
 };
