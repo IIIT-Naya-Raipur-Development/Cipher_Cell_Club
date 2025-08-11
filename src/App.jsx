@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import LoadingScreen from './components/LoadingScreen.jsx';
 import HeroSection from './components/HeroSection.jsx';
 import MagicBento from './components/MagicBento.jsx';
-import ScrollStack from './components/ScrollStack.jsx';
+import ScrollStack, { ScrollStackItem } from './components/ScrollStack.jsx';
+import Footer from './components/Footer.jsx';
 import './style.css';
 
 // Navigation Component
@@ -23,32 +24,65 @@ const Navigation = () => {
       const sections = ['hero', 'about', 'services', 'events', 'team', 'contact'];
       const scrollPosition = window.scrollY + 100; // Offset for better detection
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = document.getElementById(sections[i]);
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i]);
+      // Check if we're in the scroll stack area
+      const scrollStackEl = document.querySelector('.scroll-stack-scroller');
+      let currentSection = null;
+
+      if (scrollStackEl) {
+        const stackRect = scrollStackEl.getBoundingClientRect();
+        const stackTop = scrollStackEl.offsetTop;
+        const stackHeight = scrollStackEl.offsetHeight;
+        
+        // If we're scrolling within the stack area
+        if (scrollPosition >= stackTop && scrollPosition <= stackTop + stackHeight) {
+          const stackProgress = (scrollPosition - stackTop) / stackHeight;
           
-          // Update scroll dots
-          const dots = document.querySelectorAll('.scroll-dot');
-          dots.forEach((dot, index) => {
-            if (index === i) {
-              dot.classList.add('active');
-            } else {
-              dot.classList.remove('active');
-            }
-          });
-          
-          // Update nav items
-          const navItems = document.querySelectorAll('.nav-item');
-          navItems.forEach((item, index) => {
-            if (index === i) {
-              item.classList.add('active');
-            } else {
-              item.classList.remove('active');
-            }
-          });
-          break;
+          // Determine which stack section we're in based on scroll progress
+          if (stackProgress < 0.33) {
+            currentSection = 'services';
+          } else if (stackProgress < 0.66) {
+            currentSection = 'events';
+          } else {
+            currentSection = 'team';
+          }
         }
+      }
+
+      // If not in stack area, use regular section detection
+      if (!currentSection) {
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const section = document.getElementById(sections[i]);
+          if (section && section.offsetTop <= scrollPosition) {
+            currentSection = sections[i];
+            break;
+          }
+        }
+      }
+
+      if (currentSection && currentSection !== activeSection) {
+        setActiveSection(currentSection);
+        
+        const sectionIndex = sections.indexOf(currentSection);
+        
+        // Update scroll dots
+        const dots = document.querySelectorAll('.scroll-dot');
+        dots.forEach((dot, index) => {
+          if (index === sectionIndex) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+        
+        // Update nav items
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach((item, index) => {
+          if (index === sectionIndex) {
+            item.classList.add('active');
+          } else {
+            item.classList.remove('active');
+          }
+        });
       }
     };
 
@@ -56,7 +90,7 @@ const Navigation = () => {
     handleScroll(); // Call once on mount
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [activeSection]);
 
   return (
     <>
@@ -151,110 +185,146 @@ const HomePage = () => {
       </section>
 
       {/* Scroll Stack Sections */}
-      <ScrollStack
-        sections={[
-          {
-            title: "Security Services",
-            subtitle: "Advanced cybersecurity solutions that protect and empower your digital infrastructure",
-            icon: "🛡️",
-            features: [
-              {
-                icon: "🔍",
-                title: "Penetration Testing",
-                description: "Comprehensive security assessments to identify and eliminate vulnerabilities before attackers can exploit them."
-              },
-              {
-                icon: "🔬",
-                title: "Vulnerability Research",
-                description: "Cutting-edge research into emerging threats and zero-day vulnerabilities in modern systems."
-              },
-              {
-                icon: "⚡",
-                title: "Incident Response",
-                description: "Rapid response and forensic analysis to contain breaches and minimize damage to your organization."
-              },
-              {
-                icon: "🏗️",
-                title: "Security Architecture",
-                description: "Design and implementation of robust security frameworks tailored to your business needs."
-              }
-            ]
-          },
-          {
-            title: "Events & CTFs",
-            subtitle: "Competitive cybersecurity challenges and educational workshops that sharpen skills",
-            icon: "🏆",
-            features: [
-              {
-                icon: "⚔️",
-                title: "Capture The Flag",
-                description: "Intense competitive hacking challenges covering web security, cryptography, and reverse engineering."
-              },
-              {
-                icon: "🎓",
-                title: "Security Workshops",
-                description: "Hands-on learning sessions covering the latest tools, techniques, and methodologies in cybersecurity."
-              },
-              {
-                icon: "🌐",
-                title: "Bug Bounty Programs",
-                description: "Collaborative vulnerability hunting programs with rewards for discovering critical security flaws."
-              },
-              {
-                icon: "🤝",
-                title: "Industry Partnerships",
-                description: "Exclusive events with leading cybersecurity companies and government agencies."
-              }
-            ]
-          },
-          {
-            title: "Elite Team",
-            subtitle: "Meet the cybersecurity experts and blockchain specialists driving innovation",
-            icon: "👥",
-            features: [
-              {
-                icon: "💻",
-                title: "Security Researchers",
-                description: "PhD-level experts in vulnerability research, malware analysis, and advanced persistent threat detection."
-              },
-              {
-                icon: "⛓️",
-                title: "Blockchain Developers",
-                description: "Smart contract auditors and DeFi protocol specialists with proven track records in Web3 security."
-              },
-              {
-                icon: "🎯",
-                title: "Red Team Operators",
-                description: "Elite penetration testers and social engineers who simulate real-world attack scenarios."
-              },
-              {
-                icon: "🔐",
-                title: "Cryptography Experts",
-                description: "Mathematics and computer science experts specializing in cryptographic protocol design and analysis."
-              }
-            ]
-          }
-        ]}
-      />
-
-      {/* Contact Section */}
-      <section id="contact" className="section">
-        <div className="container">
-          <div className="section-content">
-            <div className="section-placeholder">
-              <h2 className="section-title slide-in-right">Join CipherCell</h2>
-              <p className="section-description slide-in-left">
-                Ready to secure the digital frontier? Connect with us and become part of the cybersecurity revolution.
-              </p>
-              <div className="scale-up">
-                <div style={{height: '300px', border: '2px dashed var(--accent-cyan)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)'}}>
-                  <p>Custom Contact Design Area</p>
-                </div>
+      <div id="services">
+        <ScrollStack>
+        <ScrollStackItem>
+          <div className="section-background">
+            <div className="cyber-grid"></div>
+            <div className="gradient-overlay"></div>
+          </div>
+          
+          <div className="section-inner">
+            <div className="section-icon">🛡️</div>
+            <h2 className="section-title">Security Services</h2>
+            <p className="section-subtitle">Advanced cybersecurity solutions that protect and empower your digital infrastructure</p>
+            
+            <div className="features-grid">
+              <div className="feature-card">
+                <div className="feature-icon">🔍</div>
+                <h4>Penetration Testing</h4>
+                <p>Comprehensive security assessments to identify and eliminate vulnerabilities before attackers can exploit them.</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-icon">🔬</div>
+                <h4>Vulnerability Research</h4>
+                <p>Cutting-edge research into emerging threats and zero-day vulnerabilities in modern systems.</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-icon">⚡</div>
+                <h4>Incident Response</h4>
+                <p>Rapid response and forensic analysis to contain breaches and minimize damage to your organization.</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-icon">🏗️</div>
+                <h4>Security Architecture</h4>
+                <p>Design and implementation of robust security frameworks tailored to your business needs.</p>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+
+          <div className="floating-elements">
+            <div className="floating-dot dot-1"></div>
+            <div className="floating-dot dot-2"></div>
+            <div className="floating-dot dot-3"></div>
+            <div className="floating-line line-1"></div>
+            <div className="floating-line line-2"></div>
+          </div>
+        </ScrollStackItem>
+
+        <ScrollStackItem>
+          <div id="events"></div>
+          <div className="section-background">
+            <div className="cyber-grid"></div>
+            <div className="gradient-overlay"></div>
+          </div>
+          
+          <div className="section-inner">
+            <div className="section-icon">🏆</div>
+            <h2 className="section-title">Events & CTFs</h2>
+            <p className="section-subtitle">Competitive cybersecurity challenges and educational workshops that sharpen skills</p>
+            
+            <div className="features-grid">
+              <div className="feature-card">
+                <div className="feature-icon">⚔️</div>
+                <h4>Capture The Flag</h4>
+                <p>Intense competitive hacking challenges covering web security, cryptography, and reverse engineering.</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-icon">🎓</div>
+                <h4>Security Workshops</h4>
+                <p>Hands-on learning sessions covering the latest tools, techniques, and methodologies in cybersecurity.</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-icon">🌐</div>
+                <h4>Bug Bounty Programs</h4>
+                <p>Collaborative vulnerability hunting programs with rewards for discovering critical security flaws.</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-icon">🤝</div>
+                <h4>Industry Partnerships</h4>
+                <p>Exclusive events with leading cybersecurity companies and government agencies.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="floating-elements">
+            <div className="floating-dot dot-1"></div>
+            <div className="floating-dot dot-2"></div>
+            <div className="floating-dot dot-3"></div>
+            <div className="floating-line line-1"></div>
+            <div className="floating-line line-2"></div>
+          </div>
+        </ScrollStackItem>
+
+        <ScrollStackItem>
+          <div id="team"></div>
+          <div className="section-background">
+            <div className="cyber-grid"></div>
+            <div className="gradient-overlay"></div>
+          </div>
+          
+          <div className="section-inner">
+            <div className="section-icon">👥</div>
+            <h2 className="section-title">Elite Team</h2>
+            <p className="section-subtitle">Meet the cybersecurity experts and blockchain specialists driving innovation</p>
+            
+            <div className="features-grid">
+              <div className="feature-card">
+                <div className="feature-icon">💻</div>
+                <h4>Security Researchers</h4>
+                <p>PhD-level experts in vulnerability research, malware analysis, and advanced persistent threat detection.</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-icon">⛓️</div>
+                <h4>Blockchain Developers</h4>
+                <p>Smart contract auditors and DeFi protocol specialists with proven track records in Web3 security.</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-icon">🎯</div>
+                <h4>Red Team Operators</h4>
+                <p>Elite penetration testers and social engineers who simulate real-world attack scenarios.</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-icon">🔐</div>
+                <h4>Cryptography Experts</h4>
+                <p>Mathematics and computer science experts specializing in cryptographic protocol design and analysis.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="floating-elements">
+            <div className="floating-dot dot-1"></div>
+            <div className="floating-dot dot-2"></div>
+            <div className="floating-dot dot-3"></div>
+            <div className="floating-line line-1"></div>
+            <div className="floating-line line-2"></div>
+          </div>
+        </ScrollStackItem>
+        </ScrollStack>
+      </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
