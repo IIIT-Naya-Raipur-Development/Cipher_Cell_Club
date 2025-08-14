@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HeroBackground from './HeroBackground';
 import DecryptedText from './DecryptedText';
+import useMobile from '../hooks/useMobile.js';
 
 const HeroSection = () => {
   const [shouldStartAnimations, setShouldStartAnimations] = useState(false);
   const [isPrimeMode, setIsPrimeMode] = useState(false);
   const [isHacked, setIsHacked] = useState(false);
+  const isMobile = useMobile();
 
   useEffect(() => {
     // Wait for website to be fully loaded before starting animations
@@ -95,53 +97,61 @@ const HeroSection = () => {
           </h1>
           
           <div className="hero-subtitle" id="heroSubtitle">
-            {shouldStartAnimations ? (
-              <DecryptedText
-                text="Defending tomorrow's digital world through advanced cybersecurity research, blockchain innovation, and ethical hacking excellence."
-                animateOn="view"
-                speed={25}
-                maxIterations={30}
-                sequential={true}
-                revealDirection="start"
-                characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-={}[]|:;',.?/"
-                className="subtitle-revealed"
-                encryptedClassName="subtitle-encrypted"
-              />
-            ) : (
+            {isMobile ? (
               <span className="subtitle-revealed">
                 Defending tomorrow's digital world through advanced cybersecurity research, blockchain innovation, and ethical hacking excellence.
               </span>
+            ) : (
+              shouldStartAnimations ? (
+                <DecryptedText
+                  text="Defending tomorrow's digital world through advanced cybersecurity research, blockchain innovation, and ethical hacking excellence."
+                  animateOn="view"
+                  speed={25}
+                  maxIterations={30}
+                  sequential={true}
+                  revealDirection="start"
+                  characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-={}[]|:;',.?/"
+                  className="subtitle-revealed"
+                  encryptedClassName="subtitle-encrypted"
+                />
+              ) : (
+                <span className="subtitle-revealed">
+                  Defending tomorrow's digital world through advanced cybersecurity research, blockchain innovation, and ethical hacking excellence.
+                </span>
+              )
             )}
           </div>
           
           <div className="hero-features" id="heroFeatures">
             
-            <div className="access-panel">
-              <div className="panel-header">
-                <span className={`access-status ${isHacked ? 'hacked' : ''}`}>
-                  {isHacked ? "SYSTEM HACKED" : "ACCESS GRANTED"}
-                </span>
-                <div className={`status-indicator ${isHacked ? 'hacked' : ''}`}></div>
-              </div>
-              <div className="panel-content">
-                {shouldStartAnimations ? (
-                  <DecryptedText
-                    text={isHacked ? "MALWARE INJECTED SUCCESSFULLY..." : "INITIATING SECURE CONNECTION..."}
-                    animateOn="view"
-                    speed={40}
-                    maxIterations={20}
-                    characters="0123456789ABCDEF!@#$%^&*"
-                    className={isHacked ? "access-text-hacked" : "access-text-revealed"}
-                    encryptedClassName="access-text-encrypted"
-                    key={isHacked ? "hacked-connection" : "normal-connection"}
-                  />
-                ) : (
-                  <span className={isHacked ? "access-text-hacked" : "access-text-revealed"}>
-                    {isHacked ? "MALWARE INJECTED SUCCESSFULLY..." : "INITIATING SECURE CONNECTION..."}
+            {!isMobile && (
+              <div className="access-panel">
+                <div className="panel-header">
+                  <span className={`access-status ${isHacked ? 'hacked' : ''}`}>
+                    {isHacked ? "SYSTEM HACKED" : "ACCESS GRANTED"}
                   </span>
-                )}
+                  <div className={`status-indicator ${isHacked ? 'hacked' : ''}`}></div>
+                </div>
+                <div className="panel-content">
+                  {shouldStartAnimations ? (
+                    <DecryptedText
+                      text={isHacked ? "MALWARE INJECTED SUCCESSFULLY..." : "INITIATING SECURE CONNECTION..."}
+                      animateOn="view"
+                      speed={40}
+                      maxIterations={20}
+                      characters="0123456789ABCDEF!@#$%^&*"
+                      className={isHacked ? "access-text-hacked" : "access-text-revealed"}
+                      encryptedClassName="access-text-encrypted"
+                      key={isHacked ? "hacked-connection" : "normal-connection"}
+                    />
+                  ) : (
+                    <span className={isHacked ? "access-text-hacked" : "access-text-revealed"}>
+                      {isHacked ? "MALWARE INJECTED SUCCESSFULLY..." : "INITIATING SECURE CONNECTION..."}
+                    </span>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
           </div>
           
           <div className="hero-actions" id="heroActions">
@@ -157,125 +167,130 @@ const HeroSection = () => {
         </div>
         
         <div className="hero-visual" id="heroVisual">
-          <div className="hero-terminal" id="heroTerminal">
-            <div className="terminal-header">
-              <div className="terminal-dot dot-red"></div>
-              <div className="terminal-dot dot-yellow"></div>
-              <div className="terminal-dot dot-green"></div>
-              <div className="terminal-title">root@ciphercell-hq:~#</div>
+          {!isMobile && (
+            <div className="hero-terminal" id="heroTerminal">
+              <div className="terminal-header">
+                <div className="terminal-dot dot-red"></div>
+                <div className="terminal-dot dot-yellow"></div>
+                <div className="terminal-dot dot-green"></div>
+                <div className="terminal-title">root@ciphercell-hq:~#</div>
+              </div>
+              
+              <div className="terminal-content">
+                <div className="terminal-line">
+                  <span className="terminal-prompt">root@ciphercell-hq:~#</span>
+                  <span className="terminal-command">nmap -sS -O target.domain.com</span>
+                </div>
+                <div className="terminal-line">
+                  <span className="terminal-output">Starting Nmap scan...</span>
+                </div>
+                <div className="terminal-line">
+                  <span className="terminal-output">ssh     open   filtered</span>
+                </div>
+                <div className="terminal-line">
+                  <span className="terminal-output">http    open   Apache/2.4.41</span>
+                </div>
+                <div className="terminal-line">
+                  <span className="terminal-output">https   open   Apache/2.4.41</span>
+                </div>
+                <div className="terminal-line">
+                  <span className="terminal-prompt">root@ciphercell-hq:~#</span>
+                  <span className="terminal-command">vulnerability detected</span>
+                  <span className="typing-cursor"></span>
+                </div>
+              </div>
             </div>
-            
-            <div className="terminal-content">
-              <div className="terminal-line">
-                <span className="terminal-prompt">root@ciphercell-hq:~#</span>
-                <span className="terminal-command">nmap -sS -O target.domain.com</span>
-              </div>
-              <div className="terminal-line">
-                <span className="terminal-output">Starting Nmap scan...</span>
-              </div>
-              <div className="terminal-line">
-                <span className="terminal-output">ssh     open   filtered</span>
-              </div>
-              <div className="terminal-line">
-                <span className="terminal-output">http    open   Apache/2.4.41</span>
-              </div>
-              <div className="terminal-line">
-                <span className="terminal-output">https   open   Apache/2.4.41</span>
-              </div>
-              <div className="terminal-line">
-                <span className="terminal-prompt">root@ciphercell-hq:~#</span>
-                <span className="terminal-command">vulnerability detected</span>
-                <span className="typing-cursor"></span>
-              </div>
-            </div>
-          </div>
+          )}
           
-          <div className="security-stats" id="securityStats">
-            <div className="stat-card">
-              <div className="stat-text">
-                {shouldStartAnimations ? (
-                  <DecryptedText
-                    text={isHacked ? "INSECURE" : "SECURE"}
-                    animateOn="view"
-                    speed={80}
-                    maxIterations={15}
-                    characters="01ABCDEF!@#$%^&*"
-                    className={isHacked ? "stat-hacked" : "stat-revealed"}
-                    encryptedClassName="stat-encrypted"
-                    key={isHacked ? "hacked-secure" : "normal-secure"}
-                  />
-                ) : (
-                  <span className={isHacked ? "stat-hacked" : "stat-revealed"}>
-                    {isHacked ? "INSECURE" : "SECURE"}
-                  </span>
-                )}
+          {/* Security stats - Only show on desktop */}
+          {!isMobile && (
+            <div className="security-stats" id="securityStats">
+              <div className="stat-card">
+                <div className="stat-text">
+                  {shouldStartAnimations ? (
+                    <DecryptedText
+                      text={isHacked ? "INSECURE" : "SECURE"}
+                      animateOn="view"
+                      speed={80}
+                      maxIterations={15}
+                      characters="01ABCDEF!@#$%^&*"
+                      className={isHacked ? "stat-hacked" : "stat-revealed"}
+                      encryptedClassName="stat-encrypted"
+                      key={isHacked ? "hacked-secure" : "normal-secure"}
+                    />
+                  ) : (
+                    <span className={isHacked ? "stat-hacked" : "stat-revealed"}>
+                      {isHacked ? "INSECURE" : "SECURE"}
+                    </span>
+                  )}
+                </div>
+                <div className="stat-label">Network Status</div>
               </div>
-              <div className="stat-label">Network Status</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-text">
-                {shouldStartAnimations ? (
-                  <DecryptedText
-                    text={isHacked ? "NOOB" : "ELITE"}
-                    animateOn="view"
-                    speed={90}
-                    maxIterations={18}
-                    characters="HACKER01234567!?"
-                    className={isHacked ? "stat-hacked" : "stat-revealed"}
-                    encryptedClassName="stat-encrypted"
-                    key={isHacked ? "hacked-elite" : "normal-elite"}
-                  />
-                ) : (
-                  <span className={isHacked ? "stat-hacked" : "stat-revealed"}>
-                    {isHacked ? "NOOB" : "ELITE"}
-                  </span>
-                )}
+              <div className="stat-card">
+                <div className="stat-text">
+                  {shouldStartAnimations ? (
+                    <DecryptedText
+                      text={isHacked ? "NOOB" : "ELITE"}
+                      animateOn="view"
+                      speed={90}
+                      maxIterations={18}
+                      characters="HACKER01234567!?"
+                      className={isHacked ? "stat-hacked" : "stat-revealed"}
+                      encryptedClassName="stat-encrypted"
+                      key={isHacked ? "hacked-elite" : "normal-elite"}
+                    />
+                  ) : (
+                    <span className={isHacked ? "stat-hacked" : "stat-revealed"}>
+                      {isHacked ? "NOOB" : "ELITE"}
+                    </span>
+                  )}
+                </div>
+                <div className="stat-label">Skill Level</div>
               </div>
-              <div className="stat-label">Skill Level</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-text">
-                {shouldStartAnimations ? (
-                  <DecryptedText
-                    text={isHacked ? "PWNED" : "ACTIVE"}
-                    animateOn="view"
-                    speed={70}
-                    maxIterations={12}
-                    characters="CYBER0123456789"
-                    className={isHacked ? "stat-hacked" : "stat-revealed"}
-                    encryptedClassName="stat-encrypted"
-                    key={isHacked ? "hacked-active" : "normal-active"}
-                  />
-                ) : (
-                  <span className={isHacked ? "stat-hacked" : "stat-revealed"}>
-                    {isHacked ? "PWNED" : "ACTIVE"}
-                  </span>
-                )}
+              <div className="stat-card">
+                <div className="stat-text">
+                  {shouldStartAnimations ? (
+                    <DecryptedText
+                      text={isHacked ? "PWNED" : "ACTIVE"}
+                      animateOn="view"
+                      speed={70}
+                      maxIterations={12}
+                      characters="CYBER0123456789"
+                      className={isHacked ? "stat-hacked" : "stat-revealed"}
+                      encryptedClassName="stat-encrypted"
+                      key={isHacked ? "hacked-active" : "normal-active"}
+                    />
+                  ) : (
+                    <span className={isHacked ? "stat-hacked" : "stat-revealed"}>
+                      {isHacked ? "PWNED" : "ACTIVE"}
+                    </span>
+                  )}
+                </div>
+                <div className="stat-label">Threat Detection</div>
               </div>
-              <div className="stat-label">Threat Detection</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-text">
-                {shouldStartAnimations ? (
-                  <DecryptedText
-                    text={isHacked ? "OFFLINE" : "ONLINE"}
-                    animateOn="view"
-                    speed={60}
-                    maxIterations={20}
-                    characters="BLOCKCHAIN01!@#"
-                    className={isHacked ? "stat-hacked" : "stat-revealed"}
-                    encryptedClassName="stat-encrypted"
-                    key={isHacked ? "hacked-online" : "normal-online"}
-                  />
-                ) : (
-                  <span className={isHacked ? "stat-hacked" : "stat-revealed"}>
-                    {isHacked ? "OFFLINE" : "ONLINE"}
-                  </span>
-                )}
+              <div className="stat-card">
+                <div className="stat-text">
+                  {shouldStartAnimations ? (
+                    <DecryptedText
+                      text={isHacked ? "OFFLINE" : "ONLINE"}
+                      animateOn="view"
+                      speed={60}
+                      maxIterations={20}
+                      characters="BLOCKCHAIN01!@#"
+                      className={isHacked ? "stat-hacked" : "stat-revealed"}
+                      encryptedClassName="stat-encrypted"
+                      key={isHacked ? "hacked-online" : "normal-online"}
+                    />
+                  ) : (
+                    <span className={isHacked ? "stat-hacked" : "stat-revealed"}>
+                      {isHacked ? "OFFLINE" : "ONLINE"}
+                    </span>
+                  )}
+                </div>
+                <div className="stat-label">System Status</div>
               </div>
-              <div className="stat-label">System Status</div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </section>

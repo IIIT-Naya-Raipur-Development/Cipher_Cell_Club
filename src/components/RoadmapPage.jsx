@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import useMobile from '../hooks/useMobile.js';
 import './RoadmapPage.css';
 
 // Cybersecurity Learning Roadmap Data
@@ -105,6 +106,7 @@ const RoadmapPage = () => {
   const [progress, setProgress] = useState({});
   const [selectedChapter, setSelectedChapter] = useState(null);
   const [completedTopics, setCompletedTopics] = useState(new Set());
+  const isMobile = useMobile();
 
   // Load progress from localStorage on component mount
   useEffect(() => {

@@ -6,6 +6,7 @@ import MagicBento from './components/MagicBento.jsx';
 import ScrollStack, { ScrollStackItem } from './components/ScrollStack.jsx';
 import Footer from './components/Footer.jsx';
 import RoadmapPage from './components/RoadmapPage.jsx';
+import useMobile from './hooks/useMobile.js';
 import './style.css';
 
 // Navigation Component
@@ -201,29 +202,28 @@ const Navigation = () => {
   );
 };
 
-// Home Page Component
+// Home Page Component  
 const HomePage = () => {
+  const isMobile = useMobile();
+
   return (
     <div className="page-container">
       <HeroSection />
 
-      {/* About Section with MagicBento */}
+      {/* About Section with MagicBento - Simplified for mobile */}
       <section id="about" className="section">
         <div style={{ maxWidth: '100%', width: '100%', margin: '0 auto' }}>
-          {/* <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <h2 className="section-title fade-in" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', marginBottom: '1rem' }}>About C1PH3RC3LL</h2>
-          </div> */}
           <div className="slide-in-left">
             <MagicBento
               textAutoHide={true}
-              enableStars={true}
-              enableSpotlight={true}
+              enableStars={!isMobile} // Disable stars on mobile
+              enableSpotlight={!isMobile} // Disable spotlight on mobile
               enableBorderGlow={true}
-              enableTilt={true}
-              enableMagnetism={true}
+              enableTilt={!isMobile} // Disable tilt on mobile
+              enableMagnetism={!isMobile} // Disable magnetism on mobile
               clickEffect={true}
-              spotlightRadius={300}
-              particleCount={12}
+              spotlightRadius={isMobile ? 150 : 300} // Smaller radius on mobile
+              particleCount={isMobile ? 6 : 12} // Fewer particles on mobile
               glowColor="132, 0, 255"
             />
           </div>
@@ -273,13 +273,22 @@ const HomePage = () => {
               </div>
             </div>
 
-            <div className="floating-elements">
-              <div className="floating-dot dot-1"></div>
-              <div className="floating-dot dot-2"></div>
-              <div className="floating-dot dot-3"></div>
-              <div className="floating-line line-1"></div>
-              <div className="floating-line line-2"></div>
-            </div>
+            {/* Floating elements - Reduced for mobile */}
+            {!isMobile && (
+              <div className="floating-elements">
+                <div className="floating-dot dot-1"></div>
+                <div className="floating-dot dot-2"></div>
+                <div className="floating-dot dot-3"></div>
+                <div className="floating-line line-1"></div>
+                <div className="floating-line line-2"></div>
+              </div>
+            )}
+            {isMobile && (
+              <div className="floating-elements">
+                <div className="floating-dot dot-1"></div>
+                <div className="floating-dot dot-2"></div>
+              </div>
+            )}
           </ScrollStackItem>
 
           <ScrollStackItem>
@@ -318,13 +327,22 @@ const HomePage = () => {
               </div>
             </div>
 
-            <div className="floating-elements">
-              <div className="floating-dot dot-1"></div>
-              <div className="floating-dot dot-2"></div>
-              <div className="floating-dot dot-3"></div>
-              <div className="floating-line line-1"></div>
-              <div className="floating-line line-2"></div>
-            </div>
+            {/* Floating elements - Reduced for mobile */}
+            {!isMobile && (
+              <div className="floating-elements">
+                <div className="floating-dot dot-1"></div>
+                <div className="floating-dot dot-2"></div>
+                <div className="floating-dot dot-3"></div>
+                <div className="floating-line line-1"></div>
+                <div className="floating-line line-2"></div>
+              </div>
+            )}
+            {isMobile && (
+              <div className="floating-elements">
+                <div className="floating-dot dot-1"></div>
+                <div className="floating-dot dot-2"></div>
+              </div>
+            )}
           </ScrollStackItem>
 
           <ScrollStackItem>
@@ -363,13 +381,22 @@ const HomePage = () => {
               </div>
             </div>
 
-            <div className="floating-elements">
-              <div className="floating-dot dot-1"></div>
-              <div className="floating-dot dot-2"></div>
-              <div className="floating-dot dot-3"></div>
-              <div className="floating-line line-1"></div>
-              <div className="floating-line line-2"></div>
-            </div>
+            {/* Floating elements - Reduced for mobile */}
+            {!isMobile && (
+              <div className="floating-elements">
+                <div className="floating-dot dot-1"></div>
+                <div className="floating-dot dot-2"></div>
+                <div className="floating-dot dot-3"></div>
+                <div className="floating-line line-1"></div>
+                <div className="floating-line line-2"></div>
+              </div>
+            )}
+            {isMobile && (
+              <div className="floating-elements">
+                <div className="floating-dot dot-1"></div>
+                <div className="floating-dot dot-2"></div>
+              </div>
+            )}
           </ScrollStackItem>
         </ScrollStack>
       </div>

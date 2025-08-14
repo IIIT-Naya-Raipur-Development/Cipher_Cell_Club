@@ -1380,8 +1380,49 @@ html {
   border-color: var(--accent-green);
 }
 
-/* Responsive Design */
+/* Mobile Performance Optimizations */
 @media (max-width: 768px) {
+  /* Disable heavy animations on mobile for performance - BUT preserve loading screen */
+  :not(.loading-screen) *, 
+  :not(.loading-screen) *::before, 
+  :not(.loading-screen) *::after,
+  :not(.circle-container) *,
+  :not(.circle-container) *::before,
+  :not(.circle-container) *::after,
+  :not(.outer-circle) *,
+  :not(.ring-1) *,
+  :not(.ring-2) *,
+  :not(.ring-3) *,
+  :not(.logo-c) *,
+  :not(.typed-text) * {
+    animation-duration: 0.1s !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.1s !important;
+  }
+  
+  /* Preserve loading screen animations */
+  .loading-screen,
+  .loading-screen *,
+  .loading-screen *::before,
+  .loading-screen *::after {
+    animation-duration: revert !important;
+    animation-delay: revert !important;
+    transition-duration: revert !important;
+  }
+  
+  /* Disable background animations */
+  body::before,
+  .hero-section::before,
+  .hero-section::after {
+    animation: none !important;
+  }
+  
+  /* Simplify effects */
+  .cyber-button::before,
+  .roadmap-cta::before {
+    display: none;
+  }
+  
   .sidebar-nav {
     width: 60px;
     padding: 1rem 0;
