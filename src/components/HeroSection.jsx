@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import HeroBackground from './HeroBackground';
 import DecryptedText from './DecryptedText';
 
@@ -144,6 +145,10 @@ const HeroSection = () => {
           </div>
           
           <div className="hero-actions" id="heroActions">
+            <Link to="/roadmap" className="cyber-button roadmap-cta" data-text="START LEARNING">
+              <span className="btn-text">🗺️ START LEARNING</span>
+              <div className="btn-overlay"></div>
+            </Link>
             <div className="cyber-button" data-text="GET FREE THING" onClick={handleGetFreeThing}>
               <span className="btn-text">GET FREE THING</span>
               <div className="btn-overlay"></div>

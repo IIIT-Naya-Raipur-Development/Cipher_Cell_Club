@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
 import LoadingScreen from './components/LoadingScreen.jsx';
 import HeroSection from './components/HeroSection.jsx';
 import MagicBento from './components/MagicBento.jsx';
@@ -11,9 +11,31 @@ import './style.css';
 // Navigation Component
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState('hero');
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleSmoothScroll = (e, targetId) => {
     e.preventDefault();
+
+    // If we're not on the home page, navigate to home page first
+    if (location.pathname !== '/') {
+      navigate('/');
+      // Wait for navigation to complete, then scroll
+      setTimeout(() => {
+        const element = document.querySelector(targetId);
+        if (element) {
+          const offset = 100;
+          const elementPosition = element.offsetTop - offset;
+          window.scrollTo({
+            top: elementPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
+      return;
+    }
+
+    // If we're on the home page, scroll directly
     const element = document.querySelector(targetId);
     if (element) {
       // Calculate offset for fixed sidebar and some extra space
@@ -28,6 +50,11 @@ const Navigation = () => {
 
   useEffect(() => {
     const handleScroll = () => {
+      // Only handle scroll detection on homepage
+      if (location.pathname !== '/') {
+        return;
+      }
+
       const sections = ['hero', 'about', 'services', 'events', 'team', 'contact'];
       const scrollPosition = window.scrollY + 200; // Increased offset for better detection with sidebar
 
@@ -108,7 +135,7 @@ const Navigation = () => {
     handleScroll(); // Call once on mount
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [activeSection]);
+  }, [activeSection, location]);
 
   return (
     <>
@@ -203,6 +230,7 @@ const HomePage = () => {
         </div>
       </section>
 
+
       {/* Scroll Stack Sections */}
       <div id="services">
         <ScrollStack>
@@ -221,22 +249,26 @@ const HomePage = () => {
                 <div className="feature-card">
                   <div className="feature-icon">🔍</div>
                   <h4>Penetration Testing</h4>
-                  <p>Comprehensive security assessments to identify and eliminate vulnerabilities before attackers can exploit them.</p>
+                  <p>Find vulnerabilities before attackers do.</p>
+                  <Link to="/roadmap" className="feature-link">📚 Learn in Roadmap →</Link>
                 </div>
                 <div className="feature-card">
                   <div className="feature-icon">🔬</div>
                   <h4>Vulnerability Research</h4>
-                  <p>Cutting-edge research into emerging threats and zero-day vulnerabilities in modern systems.</p>
+                  <p>Discover zero-day threats and emerging risks.</p>
+                  <Link to="/roadmap" className="feature-link">📚 Learn in Roadmap →</Link>
                 </div>
                 <div className="feature-card">
                   <div className="feature-icon">⚡</div>
                   <h4>Incident Response</h4>
-                  <p>Rapid response and forensic analysis to contain breaches and minimize damage to your organization.</p>
+                  <p>Rapid breach containment and forensic analysis.</p>
+                  <Link to="/roadmap" className="feature-link">📚 Learn in Roadmap →</Link>
                 </div>
                 <div className="feature-card">
                   <div className="feature-icon">🏗️</div>
                   <h4>Security Architecture</h4>
-                  <p>Design and implementation of robust security frameworks tailored to your business needs.</p>
+                  <p>Build robust security frameworks and systems.</p>
+                  <Link to="/roadmap" className="feature-link">📚 Learn in Roadmap →</Link>
                 </div>
               </div>
             </div>
