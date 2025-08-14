@@ -5,6 +5,7 @@ import HeroSection from './components/HeroSection.jsx';
 import MagicBento from './components/MagicBento.jsx';
 import ScrollStack, { ScrollStackItem } from './components/ScrollStack.jsx';
 import Footer from './components/Footer.jsx';
+import RoadmapPage from './components/RoadmapPage.jsx';
 import './style.css';
 
 // Navigation Component
@@ -144,6 +145,12 @@ const Navigation = () => {
               <span className="nav-icon">👥</span>
             </a>
             <div className="nav-tooltip">Our Team</div>
+          </li>
+          <li className="nav-item">
+            <Link to="/roadmap">
+              <span className="nav-icon">🗺️</span>
+            </Link>
+            <div className="nav-tooltip">Learning Roadmap</div>
           </li>
           <li className="nav-item">
             <a href="#contact" onClick={(e) => handleSmoothScroll(e, '#contact')}>
@@ -531,6 +538,7 @@ const App = () => {
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/events" element={<EventsPage />} />
             <Route path="/team" element={<TeamPage />} />
+            <Route path="/roadmap" element={<RoadmapPage />} />
             <Route path="/contact" element={<ContactPage />} />
           </Routes>
         </main>
