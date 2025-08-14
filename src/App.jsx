@@ -15,14 +15,20 @@ const Navigation = () => {
     e.preventDefault();
     const element = document.querySelector(targetId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      // Calculate offset for fixed sidebar and some extra space
+      const offset = 100;
+      const elementPosition = element.offsetTop - offset;
+      window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth'
+      });
     }
   };
 
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['hero', 'about', 'services', 'events', 'team', 'contact'];
-      const scrollPosition = window.scrollY + 100; // Offset for better detection
+      const scrollPosition = window.scrollY + 200; // Increased offset for better detection with sidebar
 
       // Check if we're in the scroll stack area
       const scrollStackEl = document.querySelector('.scroll-stack-scroller');
@@ -32,11 +38,11 @@ const Navigation = () => {
         const stackRect = scrollStackEl.getBoundingClientRect();
         const stackTop = scrollStackEl.offsetTop;
         const stackHeight = scrollStackEl.offsetHeight;
-        
+
         // If we're scrolling within the stack area
         if (scrollPosition >= stackTop && scrollPosition <= stackTop + stackHeight) {
           const stackProgress = (scrollPosition - stackTop) / stackHeight;
-          
+
           // Determine which stack section we're in based on scroll progress
           if (stackProgress < 0.33) {
             currentSection = 'services';
@@ -52,18 +58,29 @@ const Navigation = () => {
       if (!currentSection) {
         for (let i = sections.length - 1; i >= 0; i--) {
           const section = document.getElementById(sections[i]);
-          if (section && section.offsetTop <= scrollPosition) {
-            currentSection = sections[i];
-            break;
+          if (section) {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionBottom = sectionTop + sectionHeight;
+
+            // Check if scroll position is within this section
+            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+              currentSection = sections[i];
+              break;
+            }
+            // Fallback: if we're past all sections, select the last one
+            else if (scrollPosition >= sectionTop) {
+              currentSection = sections[i];
+            }
           }
         }
       }
 
       if (currentSection && currentSection !== activeSection) {
         setActiveSection(currentSection);
-        
+
         const sectionIndex = sections.indexOf(currentSection);
-        
+
         // Update scroll dots
         const dots = document.querySelectorAll('.scroll-dot');
         dots.forEach((dot, index) => {
@@ -73,7 +90,7 @@ const Navigation = () => {
             dot.classList.remove('active');
           }
         });
-        
+
         // Update nav items
         const navItems = document.querySelectorAll('.nav-item');
         navItems.forEach((item, index) => {
@@ -154,21 +171,16 @@ const Navigation = () => {
 const HomePage = () => {
   return (
     <div className="page-container">
-      <div id="hero">
-        <HeroSection />
-      </div>
-      
+      <HeroSection />
+
       {/* About Section with MagicBento */}
-      <section id="about" className="section" style={{ padding: '4rem 0' }}>
+      <section id="about" className="section">
         <div style={{ maxWidth: '100%', width: '100%', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          {/* <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <h2 className="section-title fade-in" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', marginBottom: '1rem' }}>About C1PH3RC3LL</h2>
-            <p className="section-description fade-in" style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)', maxWidth: '800px', margin: '0 auto' }}>
-              Elite Cybersecurity & Blockchain Club - Interactive Experience
-            </p>
-          </div>
+          </div> */}
           <div className="slide-in-left">
-            <MagicBento 
+            <MagicBento
               textAutoHide={true}
               enableStars={true}
               enableSpotlight={true}
@@ -187,139 +199,139 @@ const HomePage = () => {
       {/* Scroll Stack Sections */}
       <div id="services">
         <ScrollStack>
-        <ScrollStackItem>
-          <div className="section-background">
-            <div className="cyber-grid"></div>
-            <div className="gradient-overlay"></div>
-          </div>
-          
-          <div className="section-inner">
-            <div className="section-icon">🛡️</div>
-            <h2 className="section-title">Security Services</h2>
-            <p className="section-subtitle">Advanced cybersecurity solutions that protect and empower your digital infrastructure</p>
-            
-            <div className="features-grid">
-              <div className="feature-card">
-                <div className="feature-icon">🔍</div>
-                <h4>Penetration Testing</h4>
-                <p>Comprehensive security assessments to identify and eliminate vulnerabilities before attackers can exploit them.</p>
-              </div>
-              <div className="feature-card">
-                <div className="feature-icon">🔬</div>
-                <h4>Vulnerability Research</h4>
-                <p>Cutting-edge research into emerging threats and zero-day vulnerabilities in modern systems.</p>
-              </div>
-              <div className="feature-card">
-                <div className="feature-icon">⚡</div>
-                <h4>Incident Response</h4>
-                <p>Rapid response and forensic analysis to contain breaches and minimize damage to your organization.</p>
-              </div>
-              <div className="feature-card">
-                <div className="feature-icon">🏗️</div>
-                <h4>Security Architecture</h4>
-                <p>Design and implementation of robust security frameworks tailored to your business needs.</p>
+          <ScrollStackItem>
+            <div className="section-background">
+              <div className="cyber-grid"></div>
+              <div className="gradient-overlay"></div>
+            </div>
+
+            <div className="section-inner">
+              <div className="section-icon">🛡️</div>
+              <h2 className="section-title">Security Services</h2>
+              <p className="section-subtitle">Advanced cybersecurity solutions that protect and empower your digital infrastructure</p>
+
+              <div className="features-grid">
+                <div className="feature-card">
+                  <div className="feature-icon">🔍</div>
+                  <h4>Penetration Testing</h4>
+                  <p>Comprehensive security assessments to identify and eliminate vulnerabilities before attackers can exploit them.</p>
+                </div>
+                <div className="feature-card">
+                  <div className="feature-icon">🔬</div>
+                  <h4>Vulnerability Research</h4>
+                  <p>Cutting-edge research into emerging threats and zero-day vulnerabilities in modern systems.</p>
+                </div>
+                <div className="feature-card">
+                  <div className="feature-icon">⚡</div>
+                  <h4>Incident Response</h4>
+                  <p>Rapid response and forensic analysis to contain breaches and minimize damage to your organization.</p>
+                </div>
+                <div className="feature-card">
+                  <div className="feature-icon">🏗️</div>
+                  <h4>Security Architecture</h4>
+                  <p>Design and implementation of robust security frameworks tailored to your business needs.</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="floating-elements">
-            <div className="floating-dot dot-1"></div>
-            <div className="floating-dot dot-2"></div>
-            <div className="floating-dot dot-3"></div>
-            <div className="floating-line line-1"></div>
-            <div className="floating-line line-2"></div>
-          </div>
-        </ScrollStackItem>
+            <div className="floating-elements">
+              <div className="floating-dot dot-1"></div>
+              <div className="floating-dot dot-2"></div>
+              <div className="floating-dot dot-3"></div>
+              <div className="floating-line line-1"></div>
+              <div className="floating-line line-2"></div>
+            </div>
+          </ScrollStackItem>
 
-        <ScrollStackItem>
-          <div id="events"></div>
-          <div className="section-background">
-            <div className="cyber-grid"></div>
-            <div className="gradient-overlay"></div>
-          </div>
-          
-          <div className="section-inner">
-            <div className="section-icon">🏆</div>
-            <h2 className="section-title">Events & CTFs</h2>
-            <p className="section-subtitle">Competitive cybersecurity challenges and educational workshops that sharpen skills</p>
-            
-            <div className="features-grid">
-              <div className="feature-card">
-                <div className="feature-icon">⚔️</div>
-                <h4>Capture The Flag</h4>
-                <p>Intense competitive hacking challenges covering web security, cryptography, and reverse engineering.</p>
-              </div>
-              <div className="feature-card">
-                <div className="feature-icon">🎓</div>
-                <h4>Security Workshops</h4>
-                <p>Hands-on learning sessions covering the latest tools, techniques, and methodologies in cybersecurity.</p>
-              </div>
-              <div className="feature-card">
-                <div className="feature-icon">🌐</div>
-                <h4>Bug Bounty Programs</h4>
-                <p>Collaborative vulnerability hunting programs with rewards for discovering critical security flaws.</p>
-              </div>
-              <div className="feature-card">
-                <div className="feature-icon">🤝</div>
-                <h4>Industry Partnerships</h4>
-                <p>Exclusive events with leading cybersecurity companies and government agencies.</p>
+          <ScrollStackItem>
+            <div id="events"></div>
+            <div className="section-background">
+              <div className="cyber-grid"></div>
+              <div className="gradient-overlay"></div>
+            </div>
+
+            <div className="section-inner">
+              <div className="section-icon">🏆</div>
+              <h2 className="section-title">Events & CTFs</h2>
+              <p className="section-subtitle">Competitive cybersecurity challenges and educational workshops that sharpen skills</p>
+
+              <div className="features-grid">
+                <div className="feature-card">
+                  <div className="feature-icon">⚔️</div>
+                  <h4>Capture The Flag</h4>
+                  <p>Intense competitive hacking challenges covering web security, cryptography, and reverse engineering.</p>
+                </div>
+                <div className="feature-card">
+                  <div className="feature-icon">🎓</div>
+                  <h4>Security Workshops</h4>
+                  <p>Hands-on learning sessions covering the latest tools, techniques, and methodologies in cybersecurity.</p>
+                </div>
+                <div className="feature-card">
+                  <div className="feature-icon">🌐</div>
+                  <h4>Bug Bounty Programs</h4>
+                  <p>Collaborative vulnerability hunting programs with rewards for discovering critical security flaws.</p>
+                </div>
+                <div className="feature-card">
+                  <div className="feature-icon">🤝</div>
+                  <h4>Industry Partnerships</h4>
+                  <p>Exclusive events with leading cybersecurity companies and government agencies.</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="floating-elements">
-            <div className="floating-dot dot-1"></div>
-            <div className="floating-dot dot-2"></div>
-            <div className="floating-dot dot-3"></div>
-            <div className="floating-line line-1"></div>
-            <div className="floating-line line-2"></div>
-          </div>
-        </ScrollStackItem>
+            <div className="floating-elements">
+              <div className="floating-dot dot-1"></div>
+              <div className="floating-dot dot-2"></div>
+              <div className="floating-dot dot-3"></div>
+              <div className="floating-line line-1"></div>
+              <div className="floating-line line-2"></div>
+            </div>
+          </ScrollStackItem>
 
-        <ScrollStackItem>
-          <div id="team"></div>
-          <div className="section-background">
-            <div className="cyber-grid"></div>
-            <div className="gradient-overlay"></div>
-          </div>
-          
-          <div className="section-inner">
-            <div className="section-icon">👥</div>
-            <h2 className="section-title">Elite Team</h2>
-            <p className="section-subtitle">Meet the cybersecurity experts and blockchain specialists driving innovation</p>
-            
-            <div className="features-grid">
-              <div className="feature-card">
-                <div className="feature-icon">💻</div>
-                <h4>Security Researchers</h4>
-                <p>PhD-level experts in vulnerability research, malware analysis, and advanced persistent threat detection.</p>
-              </div>
-              <div className="feature-card">
-                <div className="feature-icon">⛓️</div>
-                <h4>Blockchain Developers</h4>
-                <p>Smart contract auditors and DeFi protocol specialists with proven track records in Web3 security.</p>
-              </div>
-              <div className="feature-card">
-                <div className="feature-icon">🎯</div>
-                <h4>Red Team Operators</h4>
-                <p>Elite penetration testers and social engineers who simulate real-world attack scenarios.</p>
-              </div>
-              <div className="feature-card">
-                <div className="feature-icon">🔐</div>
-                <h4>Cryptography Experts</h4>
-                <p>Mathematics and computer science experts specializing in cryptographic protocol design and analysis.</p>
+          <ScrollStackItem>
+            <div id="team"></div>
+            <div className="section-background">
+              <div className="cyber-grid"></div>
+              <div className="gradient-overlay"></div>
+            </div>
+
+            <div className="section-inner">
+              <div className="section-icon">👥</div>
+              <h2 className="section-title">Elite Team</h2>
+              <p className="section-subtitle">Meet the cybersecurity experts and blockchain specialists driving innovation</p>
+
+              <div className="features-grid">
+                <div className="feature-card">
+                  <div className="feature-icon">💻</div>
+                  <h4>Security Researchers</h4>
+                  <p>PhD-level experts in vulnerability research, malware analysis, and advanced persistent threat detection.</p>
+                </div>
+                <div className="feature-card">
+                  <div className="feature-icon">⛓️</div>
+                  <h4>Blockchain Developers</h4>
+                  <p>Smart contract auditors and DeFi protocol specialists with proven track records in Web3 security.</p>
+                </div>
+                <div className="feature-card">
+                  <div className="feature-icon">🎯</div>
+                  <h4>Red Team Operators</h4>
+                  <p>Elite penetration testers and social engineers who simulate real-world attack scenarios.</p>
+                </div>
+                <div className="feature-card">
+                  <div className="feature-icon">🔐</div>
+                  <h4>Cryptography Experts</h4>
+                  <p>Mathematics and computer science experts specializing in cryptographic protocol design and analysis.</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="floating-elements">
-            <div className="floating-dot dot-1"></div>
-            <div className="floating-dot dot-2"></div>
-            <div className="floating-dot dot-3"></div>
-            <div className="floating-line line-1"></div>
-            <div className="floating-line line-2"></div>
-          </div>
-        </ScrollStackItem>
+            <div className="floating-elements">
+              <div className="floating-dot dot-1"></div>
+              <div className="floating-dot dot-2"></div>
+              <div className="floating-dot dot-3"></div>
+              <div className="floating-line line-1"></div>
+              <div className="floating-line line-2"></div>
+            </div>
+          </ScrollStackItem>
         </ScrollStack>
       </div>
 
@@ -341,7 +353,7 @@ const AboutPage = () => {
               Elite Cybersecurity & Blockchain Club - Interactive Experience
             </p>
             <div className="slide-in-left">
-              <MagicBento 
+              <MagicBento
                 textAutoHide={true}
                 enableStars={true}
                 enableSpotlight={true}
@@ -374,7 +386,7 @@ const ServicesPage = () => {
                 Cybersecurity and Blockchain expertise that shapes the future of digital security.
               </p>
               <div className="slide-in-left">
-                <div style={{height: '400px', border: '2px dashed var(--accent-green)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)'}}>
+                <div style={{ height: '400px', border: '2px dashed var(--accent-green)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)' }}>
                   <p>Custom Services Design Area</p>
                 </div>
               </div>
@@ -399,7 +411,7 @@ const EventsPage = () => {
                 Workshops, competitions, and collaborative projects that build expertise and community.
               </p>
               <div className="scale-up">
-                <div style={{height: '350px', border: '2px dashed var(--accent-purple)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)'}}>
+                <div style={{ height: '350px', border: '2px dashed var(--accent-purple)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)' }}>
                   <p>Custom Events Design Area</p>
                 </div>
               </div>
@@ -424,7 +436,7 @@ const TeamPage = () => {
                 Meet the experts and enthusiasts driving innovation in cybersecurity and blockchain.
               </p>
               <div className="slide-in-left">
-                <div style={{height: '400px', border: '2px dashed var(--accent-blue)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)'}}>
+                <div style={{ height: '400px', border: '2px dashed var(--accent-blue)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)' }}>
                   <p>Custom Team Design Area</p>
                 </div>
               </div>
@@ -449,7 +461,7 @@ const ContactPage = () => {
                 Ready to secure the digital frontier? Connect with us and become part of the cybersecurity revolution.
               </p>
               <div className="scale-up">
-                <div style={{height: '300px', border: '2px dashed var(--accent-cyan)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)'}}>
+                <div style={{ height: '300px', border: '2px dashed var(--accent-cyan)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)' }}>
                   <p>Custom Contact Design Area</p>
                 </div>
               </div>
@@ -471,16 +483,16 @@ const App = () => {
       try {
         // Wait a bit to ensure DOM is ready
         await new Promise(resolve => setTimeout(resolve, 100));
-        
+
         // Import and initialize main.js
         const mainModule = await import('./main.js');
         console.log('Website content preloaded during animation');
-        
+
         // Ensure body is visible
         document.body.style.opacity = '1';
-        
+
         // All components now visible by default - no fade animations needed
-        
+
       } catch (error) {
         console.log('Website initialization error:', error);
         // Ensure body is visible even if there's an error
@@ -494,12 +506,12 @@ const App = () => {
 
   const handleLoadingComplete = () => {
     setIsLoading(false);
-    
+
     // Ensure the main website is fully visible and cleanup
     setTimeout(() => {
       document.body.style.transition = 'opacity 0.5s ease';
       document.body.style.opacity = '1';
-      
+
       console.log('CipherCell website fully loaded and ready');
     }, 100);
   };

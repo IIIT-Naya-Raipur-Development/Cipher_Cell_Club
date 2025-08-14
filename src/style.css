@@ -614,6 +614,7 @@ html {
   align-items: center;
   justify-content: center;
   padding: 0 2rem;
+  padding-left: calc(80px + 2rem); /* Account for sidebar width + padding */
   transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
@@ -1352,8 +1353,8 @@ html {
   }
   
   .nav-logo {
-    font-size: 1rem;
-    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
   }
   
   .nav-item a {
@@ -1365,44 +1366,110 @@ html {
     font-size: 1.2rem;
   }
   
+  .nav-tooltip {
+    display: none;
+  }
+  
   .container {
     margin-left: 60px;
     padding: 0 1rem;
   }
   
+  /* Hero Section Mobile */
   .hero-section {
+    padding-left: calc(60px + 1rem); /* Account for mobile sidebar width */
+  }
+  
+  .hero-container {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 3rem;
     text-align: center;
+    padding: 0 1rem;
   }
   
   .hero-content {
     text-align: center;
+    order: 2;
   }
   
-  .hero-stats {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+  .hero-visual {
+    order: 1;
+    margin-bottom: 2rem;
   }
   
-  .cyber-shield {
-    width: 250px;
-    height: 250px;
+  .hero-badge {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
   }
   
-  .ring-outer {
-    width: 230px;
-    height: 230px;
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 3.5rem);
+    line-height: 1.2;
+    margin-bottom: 1rem;
   }
   
-  .ring-middle {
-    width: 160px;
-    height: 160px;
+  .hero-subtitle {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    margin-bottom: 2rem;
   }
   
-  .ring-inner {
-    width: 90px;
-    height: 90px;
+  .hero-terminal {
+    padding: 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .terminal-content {
+    font-size: 0.75rem;
+  }
+  
+  .security-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+  }
+  
+  .stat-card {
+    padding: 1rem;
+  }
+  
+  .stat-text {
+    font-size: 1.2rem;
+    min-height: 2rem;
+  }
+  
+  .stat-label {
+    font-size: 0.75rem;
+  }
+  
+  .cyber-button {
+    padding: 0.8rem 2rem;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+  }
+  
+  .access-panel {
+    padding: 0.8rem;
+  }
+  
+  .panel-content {
+    font-size: 0.8rem;
+  }
+  
+  .cyber-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+  
+  .grid-item {
+    padding: 0.8rem;
+  }
+  
+  .grid-icon {
+    font-size: 1.2rem;
+  }
+  
+  .grid-label {
+    font-size: 0.7rem;
   }
   
   .section-placeholder {
@@ -1410,18 +1477,25 @@ html {
   }
   
   .scroll-indicator {
-    display: none;
+    right: 1rem;
+    gap: 0.8rem;
+  }
+  
+  .scroll-dot {
+    width: 10px;
+    height: 10px;
   }
 }
 
 @media (max-width: 480px) {
   .sidebar-nav {
     width: 50px;
+    padding: 0.8rem 0;
   }
   
   .nav-logo {
-    font-size: 0.8rem;
-    margin-bottom: 1.5rem;
+    font-size: 0.7rem;
+    margin-bottom: 1rem;
   }
   
   .nav-item a {
@@ -1433,48 +1507,140 @@ html {
     font-size: 1rem;
   }
   
+  .nav-links {
+    gap: 1.5rem;
+  }
+  
   .container {
     margin-left: 50px;
     padding: 0 0.5rem;
   }
   
+  /* Hero Section Ultra Mobile */
   .hero-section {
+    padding-left: calc(50px + 0.5rem); /* Account for ultra mobile sidebar width */
+  }
+  
+  .hero-container {
+    gap: 2rem;
+    padding: 0 0.5rem;
+  }
+  
+  .hero-content {
     gap: 1.5rem;
-    padding: 1rem;
   }
   
-  .hero-stats {
+  .hero-badge {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .hero-title {
+    font-size: clamp(1.8rem, 10vw, 2.8rem);
+    margin-bottom: 0.8rem;
+  }
+  
+  .hero-subtitle {
+    font-size: clamp(0.9rem, 4vw, 1.1rem);
+    margin-bottom: 1.5rem;
+  }
+  
+  .hero-terminal {
+    padding: 0.8rem;
+    font-size: 0.7rem;
+  }
+  
+  .terminal-header {
+    margin-bottom: 0.8rem;
+  }
+  
+  .terminal-dot {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .terminal-title {
+    font-size: 0.7rem;
+  }
+  
+  .terminal-content {
+    font-size: 0.65rem;
+    line-height: 1.4;
+  }
+  
+  .security-stats {
     grid-template-columns: 1fr;
-    gap: 0.8rem;
+    gap: 0.6rem;
+    margin-top: 1rem;
   }
   
-  .stat-item {
+  .stat-card {
     padding: 0.8rem;
   }
   
-  .cyber-shield {
-    width: 200px;
-    height: 200px;
+  .stat-text {
+    font-size: 1rem;
+    min-height: 1.5rem;
   }
   
-  .ring-outer {
-    width: 180px;
-    height: 180px;
+  .stat-label {
+    font-size: 0.7rem;
   }
   
-  .ring-middle {
-    width: 130px;
-    height: 130px;
+  .cyber-button {
+    padding: 0.7rem 1.8rem;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
   }
   
-  .ring-inner {
-    width: 80px;
-    height: 80px;
+  .access-panel {
+    padding: 0.6rem;
+  }
+  
+  .panel-content {
+    font-size: 0.75rem;
+  }
+  
+  .access-status {
+    font-size: 0.8rem;
+  }
+  
+  .status-indicator {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .cyber-grid {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+  
+  .grid-item {
+    padding: 0.6rem;
+    text-align: center;
+  }
+  
+  .grid-icon {
+    font-size: 1rem;
+  }
+  
+  .grid-label {
+    font-size: 0.65rem;
   }
   
   .btn {
     padding: 0.8rem 1.5rem;
     font-size: 0.9rem;
+  }
+  
+  .scroll-indicator {
+    right: 0.5rem;
+    gap: 0.6rem;
+  }
+  
+  .scroll-dot {
+    width: 8px;
+    height: 8px;
   }
 }
 

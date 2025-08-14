@@ -52,6 +52,7 @@ const Footer = () => {
   return (
     <>
       <div
+        id="contact"
         className="footer-container"
         ref={container}
       >

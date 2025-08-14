@@ -79,7 +79,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="home" className={`section hero-section ${isPrimeMode ? 'prime-mode' : ''}`}>
+    <section id="hero" className={`section hero-section ${isPrimeMode ? 'prime-mode' : ''}`}>
       {/* LetterGlitch Background */}
       <HeroBackground isPrimeMode={isPrimeMode} />
       
